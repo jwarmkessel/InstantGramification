@@ -8,17 +8,28 @@
 
 #import "BIGAppDelegate.h"
 
+#define APP_ID @"9ad8f1c815c449608c430b892dca3eb9"
+
 @implementation BIGAppDelegate
 
 - (void)dealloc
 {
+    [self.instagram release], self.instagram = nil;
     [_window release];
     [super dealloc];
 }
 
+-(BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+    return [self.instagram handleOpenURL:url];
+}
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
+    return [self.instagram handleOpenURL:url];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    self.instagram = [[Instagram alloc] initWithClientId:APP_ID
+                                                delegate:nil];
     return YES;
 }
 							
@@ -32,6 +43,10 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+
+    //iOS pauses core location when it enters the background.  
+
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

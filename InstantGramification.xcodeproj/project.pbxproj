@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		832C0B6016F2AAE100ABAD02 /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 832C0B5B16F2AAE100ABAD02 /* Cell.m */; };
+		832C0B6116F2AAE100ABAD02 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 832C0B5D16F2AAE100ABAD02 /* CustomCellBackground.m */; };
+		832C0B6216F2AAE100ABAD02 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 832C0B5F16F2AAE100ABAD02 /* DetailViewController.m */; };
+		834288C816F2625100B2FC4C /* BIGNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 834288C716F2625100B2FC4C /* BIGNavViewController.m */; };
+		835FDCD916F27BD700FA3EC5 /* BIGLocationDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDCD816F27BD700FA3EC5 /* BIGLocationDataController.m */; };
+		835FDCDC16F27C1300FA3EC5 /* BIGLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDCDB16F27C1300FA3EC5 /* BIGLocation.m */; };
+		839C68AB16F2A89D00FEE60F /* BIGImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 839C68AA16F2A89D00FEE60F /* BIGImageViewController.m */; };
+		83CDDAB516F13944001730B4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CDDAB416F13944001730B4 /* CoreLocation.framework */; };
+		83CDDAB716F13A52001730B4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CDDAB616F13A52001730B4 /* MapKit.framework */; };
+		83CDDABA16F13EE3001730B4 /* BIGMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CDDAB916F13EE3001730B4 /* BIGMapViewController.m */; };
 		83FBD5AF16F11EA800E9DEBB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FBD5AE16F11EA800E9DEBB /* UIKit.framework */; };
 		83FBD5B116F11EA800E9DEBB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FBD5B016F11EA800E9DEBB /* Foundation.framework */; };
 		83FBD5B316F11EA800E9DEBB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FBD5B216F11EA800E9DEBB /* CoreGraphics.framework */; };
@@ -18,9 +28,28 @@
 		83FBD5C516F11EA900E9DEBB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 83FBD5C416F11EA900E9DEBB /* Default-568h@2x.png */; };
 		83FBD5C816F11EA900E9DEBB /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 83FBD5C616F11EA900E9DEBB /* MainStoryboard.storyboard */; };
 		83FBD5CB16F11EA900E9DEBB /* BIGViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83FBD5CA16F11EA900E9DEBB /* BIGViewController.m */; };
+		F1CAD5C0064A40CEAC8E92A6 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A9933226B6154A3C84EE35D7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		832C0B5A16F2AAE100ABAD02 /* Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cell.h; sourceTree = "<group>"; };
+		832C0B5B16F2AAE100ABAD02 /* Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Cell.m; sourceTree = "<group>"; };
+		832C0B5C16F2AAE100ABAD02 /* CustomCellBackground.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCellBackground.h; sourceTree = "<group>"; };
+		832C0B5D16F2AAE100ABAD02 /* CustomCellBackground.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCellBackground.m; sourceTree = "<group>"; };
+		832C0B5E16F2AAE100ABAD02 /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		832C0B5F16F2AAE100ABAD02 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		834288C616F2625100B2FC4C /* BIGNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIGNavViewController.h; sourceTree = "<group>"; };
+		834288C716F2625100B2FC4C /* BIGNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIGNavViewController.m; sourceTree = "<group>"; };
+		835FDCD716F27BD700FA3EC5 /* BIGLocationDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIGLocationDataController.h; sourceTree = "<group>"; };
+		835FDCD816F27BD700FA3EC5 /* BIGLocationDataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIGLocationDataController.m; sourceTree = "<group>"; };
+		835FDCDA16F27C1300FA3EC5 /* BIGLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIGLocation.h; sourceTree = "<group>"; };
+		835FDCDB16F27C1300FA3EC5 /* BIGLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIGLocation.m; sourceTree = "<group>"; };
+		839C68A916F2A89D00FEE60F /* BIGImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIGImageViewController.h; sourceTree = "<group>"; };
+		839C68AA16F2A89D00FEE60F /* BIGImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIGImageViewController.m; sourceTree = "<group>"; };
+		83CDDAB416F13944001730B4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		83CDDAB616F13A52001730B4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		83CDDAB816F13EE3001730B4 /* BIGMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BIGMapViewController.h; path = ../BIGMapViewController.h; sourceTree = "<group>"; };
+		83CDDAB916F13EE3001730B4 /* BIGMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BIGMapViewController.m; path = ../BIGMapViewController.m; sourceTree = "<group>"; };
 		83FBD5AB16F11EA800E9DEBB /* InstantGramification.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstantGramification.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FBD5AE16F11EA800E9DEBB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		83FBD5B016F11EA800E9DEBB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -37,6 +66,8 @@
 		83FBD5C716F11EA900E9DEBB /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		83FBD5C916F11EA900E9DEBB /* BIGViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BIGViewController.h; sourceTree = "<group>"; };
 		83FBD5CA16F11EA900E9DEBB /* BIGViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BIGViewController.m; sourceTree = "<group>"; };
+		A9933226B6154A3C84EE35D7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		F20A21C8854A4471B592C34F /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,9 +75,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83CDDAB716F13A52001730B4 /* MapKit.framework in Frameworks */,
+				83CDDAB516F13944001730B4 /* CoreLocation.framework in Frameworks */,
 				83FBD5AF16F11EA800E9DEBB /* UIKit.framework in Frameworks */,
 				83FBD5B116F11EA800E9DEBB /* Foundation.framework in Frameworks */,
 				83FBD5B316F11EA800E9DEBB /* CoreGraphics.framework in Frameworks */,
+				F1CAD5C0064A40CEAC8E92A6 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,6 +93,7 @@
 				83FBD5B416F11EA800E9DEBB /* InstantGramification */,
 				83FBD5AD16F11EA800E9DEBB /* Frameworks */,
 				83FBD5AC16F11EA800E9DEBB /* Products */,
+				F20A21C8854A4471B592C34F /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,9 +108,12 @@
 		83FBD5AD16F11EA800E9DEBB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				83CDDAB616F13A52001730B4 /* MapKit.framework */,
+				83CDDAB416F13944001730B4 /* CoreLocation.framework */,
 				83FBD5AE16F11EA800E9DEBB /* UIKit.framework */,
 				83FBD5B016F11EA800E9DEBB /* Foundation.framework */,
 				83FBD5B216F11EA800E9DEBB /* CoreGraphics.framework */,
+				A9933226B6154A3C84EE35D7 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -88,7 +126,23 @@
 				83FBD5C616F11EA900E9DEBB /* MainStoryboard.storyboard */,
 				83FBD5C916F11EA900E9DEBB /* BIGViewController.h */,
 				83FBD5CA16F11EA900E9DEBB /* BIGViewController.m */,
+				834288C616F2625100B2FC4C /* BIGNavViewController.h */,
+				834288C716F2625100B2FC4C /* BIGNavViewController.m */,
+				83CDDAB816F13EE3001730B4 /* BIGMapViewController.h */,
+				83CDDAB916F13EE3001730B4 /* BIGMapViewController.m */,
+				835FDCD716F27BD700FA3EC5 /* BIGLocationDataController.h */,
+				835FDCD816F27BD700FA3EC5 /* BIGLocationDataController.m */,
+				835FDCDA16F27C1300FA3EC5 /* BIGLocation.h */,
+				835FDCDB16F27C1300FA3EC5 /* BIGLocation.m */,
 				83FBD5B516F11EA800E9DEBB /* Supporting Files */,
+				839C68A916F2A89D00FEE60F /* BIGImageViewController.h */,
+				839C68AA16F2A89D00FEE60F /* BIGImageViewController.m */,
+				832C0B5A16F2AAE100ABAD02 /* Cell.h */,
+				832C0B5B16F2AAE100ABAD02 /* Cell.m */,
+				832C0B5C16F2AAE100ABAD02 /* CustomCellBackground.h */,
+				832C0B5D16F2AAE100ABAD02 /* CustomCellBackground.m */,
+				832C0B5E16F2AAE100ABAD02 /* DetailViewController.h */,
+				832C0B5F16F2AAE100ABAD02 /* DetailViewController.m */,
 			);
 			path = InstantGramification;
 			sourceTree = "<group>";
@@ -117,6 +171,7 @@
 				83FBD5A716F11EA800E9DEBB /* Sources */,
 				83FBD5A816F11EA800E9DEBB /* Frameworks */,
 				83FBD5A916F11EA800E9DEBB /* Resources */,
+				2A0F6509C09B43B8B1527691 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -169,6 +224,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2A0F6509C09B43B8B1527691 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		83FBD5A716F11EA800E9DEBB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -177,6 +249,14 @@
 				83FBD5BB16F11EA800E9DEBB /* main.m in Sources */,
 				83FBD5BF16F11EA800E9DEBB /* BIGAppDelegate.m in Sources */,
 				83FBD5CB16F11EA900E9DEBB /* BIGViewController.m in Sources */,
+				83CDDABA16F13EE3001730B4 /* BIGMapViewController.m in Sources */,
+				834288C816F2625100B2FC4C /* BIGNavViewController.m in Sources */,
+				835FDCD916F27BD700FA3EC5 /* BIGLocationDataController.m in Sources */,
+				835FDCDC16F27C1300FA3EC5 /* BIGLocation.m in Sources */,
+				839C68AB16F2A89D00FEE60F /* BIGImageViewController.m in Sources */,
+				832C0B6016F2AAE100ABAD02 /* Cell.m in Sources */,
+				832C0B6116F2AAE100ABAD02 /* CustomCellBackground.m in Sources */,
+				832C0B6216F2AAE100ABAD02 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,22 +338,28 @@
 		};
 		83FBD5CF16F11EA900E9DEBB /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F20A21C8854A4471B592C34F /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InstantGramification/InstantGramification-Prefix.pch";
 				INFOPLIST_FILE = "InstantGramification/InstantGramification-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		83FBD5D016F11EA900E9DEBB /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F20A21C8854A4471B592C34F /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "InstantGramification/InstantGramification-Prefix.pch";
 				INFOPLIST_FILE = "InstantGramification/InstantGramification-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -297,6 +383,7 @@
 				83FBD5D016F11EA900E9DEBB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

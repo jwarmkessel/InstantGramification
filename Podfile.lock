@@ -1,0 +1,35 @@
+
+SPEC CHECKSUMS: 
+  ASIHTTPRequest/CloudFiles: e606d2df58b0aace6c1cf1d39a08d3484f91324a
+  instagram-ios-sdk: b337c659943d061bb51cedfa280ff95f68dbe08c
+  ASIHTTPRequest/S3: e606d2df58b0aace6c1cf1d39a08d3484f91324a
+  ASIHTTPRequest/ASIWebPageRequest: e606d2df58b0aace6c1cf1d39a08d3484f91324a
+  PSTCollectionView: c2ce6d64ffe55a8c3e68bb1036442817aaf83409
+  ASIHTTPRequest: e606d2df58b0aace6c1cf1d39a08d3484f91324a
+  SBJson: cc373c9eed9314a45715e4fb77a1415c45fa056e
+  Reachability: 1c8584c5f26fa776695efef95caaa50402c94cfb
+
+COCOAPODS: 0.16.4
+
+PODS: 
+- ASIHTTPRequest (1.8.1): 
+  - ASIHTTPRequest/ASIWebPageRequest (= 1.8.1)
+  - ASIHTTPRequest/CloudFiles (= 1.8.1)
+  - ASIHTTPRequest/S3 (= 1.8.1)
+  - Reachability
+- ASIHTTPRequest/ASIWebPageRequest (1.8.1): 
+  - Reachability
+- ASIHTTPRequest/CloudFiles (1.8.1): 
+  - Reachability
+- ASIHTTPRequest/S3 (1.8.1): 
+  - Reachability
+- PSTCollectionView (0.0.1)
+- Reachability (3.1.0)
+- SBJson (2.2.3)
+- instagram-ios-sdk (0.0.1): 
+  - SBJson (= 2.2.3)
+
+DEPENDENCIES: 
+- ASIHTTPRequest (~> 1.8.1)
+- PSTCollectionView (~> 0.0.1)
+- instagram-ios-sdk (~> 0.0.1)

@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BIGViewController : UIViewController
+@class BIGMapViewController;
+
+@interface BIGViewController : UIViewController <IGSessionDelegate>
+- (IBAction)handleInstagramConnect:(id)sender;
+
+@property(retain, nonatomic) BIGMapViewController *mapViewController;
 
 @end
