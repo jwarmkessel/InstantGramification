@@ -15,7 +15,7 @@
 #define M_PI   3.14159265358979323846264338327950288   /* pi */
 #define METERS_PER_MILE 1609.344
 #define METERS_TO_MILE_CONVERSION 0.00062137
-#define SEARCH_DIST 25
+#define SEARCH_DIST 2
 #define UPDATE_GPS 15
 #define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
 #define MILES_TO_METERS(miles) (miles /METERS_PER_MILE)
@@ -155,6 +155,9 @@
     NSLog(@"didSelectAnnotationView");
     
     BIGLocation *tempLocation = (BIGLocation *)view.annotation;
+
+    [tempLocation getCollectionImages];
+    
     [self performSegueWithIdentifier:@"displayImageCollection" sender:tempLocation];
 }
 
@@ -259,6 +262,7 @@
  */
 - (void)request:(IGRequest *)request didReceiveResponse:(NSURLResponse *)response {
     //TODO loading mask is loaded here.
+    NSLog(@"didReceiveResponse");
 }
 
 - (void)request:(IGRequest *)request didFailWithError:(NSError *)error {
@@ -266,7 +270,7 @@
 }
 
 - (void)request:(IGRequest *)request didLoad:(id)result {
-
+    NSLog(@"request did Load");
     //Upon receiving the parsed request store locations in a data controller
     NSArray *list = [result objectForKey:@"data"];
     
@@ -281,6 +285,7 @@
     
     for(int i = 0; i<self.locationPts.count; i++) {
         BIGLocation *location = [self.locationPts objectAtIndex:i];
+        NSLog(@"an Identity %@ and %@", location.identityNum, location.name);
         [self.mapView addAnnotation:location];
     }
 

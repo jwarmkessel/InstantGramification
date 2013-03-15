@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
-@interface BIGLocation : NSObject <MKAnnotation> {
+@interface BIGLocation : NSObject <MKAnnotation, IGRequestDelegate> {
     CLLocationCoordinate2D coordinate;
     NSString *title;
     NSString *subtitle;
@@ -21,6 +21,10 @@
 @property(readonly, nonatomic) CLLocationCoordinate2D coordinate;
 @property (nonatomic, copy) NSString *subtitle;
 @property (nonatomic, copy) NSString *title;
+@property (retain, nonatomic) NSMutableArray *imageCollection;
+@property (retain, nonatomic) UIImage *detailImage;
+
 
 - (id)initLocationWithName:(NSString *)name latitude:(NSString *)latitude longitude:(NSString *)longitude identityNumber:(NSString *)identityNum;
+- (void) getCollectionImages;
 @end
