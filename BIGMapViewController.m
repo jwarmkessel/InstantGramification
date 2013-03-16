@@ -65,11 +65,13 @@
     //Initalize data controller for locations
     self.locationDataController = [[BIGLocationDataController alloc]init];
     
+    self.imageCollectionViewController = [[BIGImageViewController alloc] init];
+    
     //Disable the back button because we've already been granted an access token from Insatgram
     self.navigationItem.hidesBackButton = YES;
     
     //Set initial distance flag as true
-    traveledDistance = SEARCH_DIST;
+    _traveledDistance = SEARCH_DIST;
     
     //Enable seeing the users current location.
     [self.mapView setShowsUserLocation:YES];
@@ -100,6 +102,19 @@
     [self.locationManager startUpdatingLocation];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    // Make sure your segue name in storyboard is the same as this line
+    if ([[segue identifier] isEqualToString:@"displayImageCollection"])
+    {
+//        UIViewController *viewController = [[[UIViewController alloc] init] autorelease];
+//        self.imageCollectionViewController = [[[BIGImageViewController alloc] init] autorelease];
+//        [self.imageCollectionViewController setImageCollectionObj:_currentSelectedLocation];
+        // Get reference to the destination view controller
+        self.imageCollectionViewController = (BIGImageViewController *)[segue destinationViewController];
+        self.imageCollectionViewController.locationObj = _currentSelectedLocation;
+    }
+}
 #pragma mark - mapkit delegate
 
 - (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
@@ -125,7 +140,6 @@
 // This method may be called for all or some of the added annotations.
 // For MapKit provided annotations (eg. MKUserLocation) return nil to use the MapKit provided annotation view.
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    NSLog(@"viewForAnnotation is called");
     MKPinAnnotationView *pinView = nil;
     if(annotation != mapView.userLocation)
     {
@@ -155,10 +169,11 @@
     NSLog(@"didSelectAnnotationView");
     
     BIGLocation *tempLocation = (BIGLocation *)view.annotation;
-
+    tempLocation.delegate = self;
     [tempLocation getCollectionImages];
     
-    [self performSegueWithIdentifier:@"displayImageCollection" sender:tempLocation];
+    //TODO need delegate from BIGLocation to indicate when request is done processing
+    _currentSelectedLocation = tempLocation;
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
@@ -210,12 +225,12 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
     //If original location was set then set the distance traveled.
     if(self.originalCoordinate != nil) {
-        traveledDistance = [self.originalCoordinate distanceFromLocation:manager.location];
+        _traveledDistance = [self.originalCoordinate distanceFromLocation:manager.location];
     }
     
     
     //This is true if gps is accurate and the traveled distance from the original location is greater than the distance required.
-    if(manager.location.horizontalAccuracy < 15 && traveledDistance >= SEARCH_DIST) {
+    if(manager.location.horizontalAccuracy < 15 && _traveledDistance >= SEARCH_DIST) {
         NSLog(@"GPS Appears to be accurate down to 15 meters let's make Instagram Request");
         BIGAppDelegate* appDelegate = (BIGAppDelegate*)[UIApplication sharedApplication].delegate;
  
@@ -284,13 +299,17 @@
     self.locationPts = [[NSMutableArray alloc] initWithArray:self.locationDataController.locationList];
     
     for(int i = 0; i<self.locationPts.count; i++) {
-        BIGLocation *location = [self.locationPts objectAtIndex:i];
-        NSLog(@"an Identity %@ and %@", location.identityNum, location.name);
+        BIGLocation *location = [[self.locationPts objectAtIndex:i] autorelease];
         [self.mapView addAnnotation:location];
     }
 
     
     //TODO loading mask is removed here.
+}
+
+#pragma mark - BIGLocationImgCollDelegate
+- (void)locationImagesDidFinish:(BIGLocation *)controller {
+    [self performSegueWithIdentifier:@"displayImageCollection" sender:self];
 }
 
 @end

@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 #import <MapKit/MapKit.h>
+
+@protocol BIGLocationImgCollDelegate;
+
 @interface BIGLocation : NSObject <MKAnnotation, IGRequestDelegate> {
     CLLocationCoordinate2D coordinate;
     NSString *title;
@@ -22,9 +25,15 @@
 @property (nonatomic, copy) NSString *subtitle;
 @property (nonatomic, copy) NSString *title;
 @property (retain, nonatomic) NSMutableArray *imageCollection;
-@property (retain, nonatomic) UIImage *detailImage;
 
+@property (assign, nonatomic) id <BIGLocationImgCollDelegate> delegate;
 
 - (id)initLocationWithName:(NSString *)name latitude:(NSString *)latitude longitude:(NSString *)longitude identityNumber:(NSString *)identityNum;
 - (void) getCollectionImages;
+@end
+
+@protocol BIGLocationImgCollDelegate <NSObject>
+
+- (void)locationImagesDidFinish:(BIGLocation *)controller;
+
 @end

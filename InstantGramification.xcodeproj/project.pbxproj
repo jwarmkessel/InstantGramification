@@ -11,6 +11,7 @@
 		832C0B6116F2AAE100ABAD02 /* CustomCellBackground.m in Sources */ = {isa = PBXBuildFile; fileRef = 832C0B5D16F2AAE100ABAD02 /* CustomCellBackground.m */; };
 		832C0B6216F2AAE100ABAD02 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 832C0B5F16F2AAE100ABAD02 /* DetailViewController.m */; };
 		832C0B6516F3EC0E00ABAD02 /* BIGLocationImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 832C0B6416F3EC0E00ABAD02 /* BIGLocationImage.m */; };
+		832C0B6A16F41ED100ABAD02 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 832C0B6916F41ED100ABAD02 /* CFNetwork.framework */; };
 		834288C816F2625100B2FC4C /* BIGNavViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 834288C716F2625100B2FC4C /* BIGNavViewController.m */; };
 		835FDCD916F27BD700FA3EC5 /* BIGLocationDataController.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDCD816F27BD700FA3EC5 /* BIGLocationDataController.m */; };
 		835FDCDC16F27C1300FA3EC5 /* BIGLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 835FDCDB16F27C1300FA3EC5 /* BIGLocation.m */; };
@@ -41,6 +42,7 @@
 		832C0B5F16F2AAE100ABAD02 /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		832C0B6316F3EC0E00ABAD02 /* BIGLocationImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIGLocationImage.h; sourceTree = "<group>"; };
 		832C0B6416F3EC0E00ABAD02 /* BIGLocationImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIGLocationImage.m; sourceTree = "<group>"; };
+		832C0B6916F41ED100ABAD02 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		834288C616F2625100B2FC4C /* BIGNavViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIGNavViewController.h; sourceTree = "<group>"; };
 		834288C716F2625100B2FC4C /* BIGNavViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIGNavViewController.m; sourceTree = "<group>"; };
 		835FDCD716F27BD700FA3EC5 /* BIGLocationDataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIGLocationDataController.h; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				832C0B6A16F41ED100ABAD02 /* CFNetwork.framework in Frameworks */,
 				83CDDAB716F13A52001730B4 /* MapKit.framework in Frameworks */,
 				83CDDAB516F13944001730B4 /* CoreLocation.framework in Frameworks */,
 				83FBD5AF16F11EA800E9DEBB /* UIKit.framework in Frameworks */,
@@ -111,6 +114,7 @@
 		83FBD5AD16F11EA800E9DEBB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				832C0B6916F41ED100ABAD02 /* CFNetwork.framework */,
 				83CDDAB616F13A52001730B4 /* MapKit.framework */,
 				83CDDAB416F13944001730B4 /* CoreLocation.framework */,
 				83FBD5AE16F11EA800E9DEBB /* UIKit.framework */,

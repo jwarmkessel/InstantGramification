@@ -10,4 +10,11 @@
 
 @interface BIGLocationImage : NSObject
 
+@property (retain, strong)NSString *height;
+@property (retain, strong)NSString *width;
+@property (retain, strong)NSString *url;
+@property (retain, strong)NSString *detailImageURL;
+
+- (id)initLocationWithUrlString:(NSString *)urlStr height:(NSString *)height width:(NSString *)width detailImgURL:(NSString *)detailImgURL;
+
 @end

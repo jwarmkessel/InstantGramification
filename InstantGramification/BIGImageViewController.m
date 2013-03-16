@@ -9,15 +9,37 @@
 #import "BIGImageViewController.h"
 #import "DetailViewController.h"
 #import "Cell.h"
+#import "BIGLocationImage.h"
+#import "BIGLocation.h"
+#import <ASIHTTPRequest.h>
 
 NSString *kDetailedViewControllerID = @"DetailView";    // view controller storyboard id
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
 
 @implementation BIGImageViewController
 
+- (void)dealloc {
+    [self.imageCollection release], self.imageCollection = nil;
+    [self.locationObj release], self.locationObj = nil;
+    
+    [super dealloc];
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    self.imageCollection = [[NSMutableArray alloc] initWithArray:self.locationObj.imageCollection];
+}
+
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
 - (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
 {
-    return 5;
+    return [self.imageCollection count];
 }
 
 - (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
@@ -26,12 +48,31 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
     //
     Cell *cell = [cv dequeueReusableCellWithReuseIdentifier:kCellID forIndexPath:indexPath];
     
-    // make the cell's title the actual NSIndexPath value
-    cell.label.text = [NSString stringWithFormat:@"{%ld,%ld}", (long)indexPath.row, (long)indexPath.section];
+    BIGLocationImage* locationImage = [self.imageCollection objectAtIndex:indexPath.row];
+
+//    // make the cell's title the actual NSIndexPath value
+//    cell.label.text = [NSString stringWithFormat:@"{%ld,%ld}", (long)indexPath.row, (long)indexPath.section];
     
-    // load the image for this cell
-    NSString *imageToLoad = [NSString stringWithFormat:@"%d.JPG", indexPath.row];
-    cell.image.image = [UIImage imageNamed:imageToLoad];
+    // thumbnail for this row is not found in cache, so get it from remote website
+    
+    dispatch_queue_t imageQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(imageQueue, ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSURL *url = [NSURL URLWithString:locationImage.url];
+            ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:url] autorelease];
+            NSError *error = [request error];
+            [request startSynchronous];
+
+            if (!error) {
+                NSMutableData *response = [request rawResponseData];
+                cell.image.image = [UIImage imageWithData:response];
+            }
+        });
+    });
+    
+//    // load the image for this cell
+//    NSString *imageToLoad = [NSString stringWithFormat:@"%d.JPG", indexPath.row];
+//    cell.image.image = [UIImage imageNamed:imageToLoad];
     
     return cell;
 }
@@ -52,6 +93,13 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
         DetailViewController *detailViewController = [segue destinationViewController];
         detailViewController.image = image;
     }
+}
+
+- (void)setImageCollectionObj:(BIGLocation *)locationObj {
+    BIGLocationImage *locationImageObj = (BIGLocationImage *)[locationObj.imageCollection objectAtIndex:0];
+    NSLog(@"success! setimagecollectionobj called %@", locationImageObj.url);
+    
+    [self.imageCollection initWithArray:locationObj.imageCollection];
 }
 
 @end

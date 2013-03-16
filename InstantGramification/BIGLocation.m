@@ -7,12 +7,26 @@
 //
 
 #import "BIGLocation.h"
+#import "BIGLocationImage.h"
 #import "BIGAppDelegate.h"
 
 #define LOCATION_MEDIA_REQUEST @"locations/{location-id}/media/recent"
+#define THUMBNAIL_IMAGES_MAX 5
 
 @implementation BIGLocation
 @synthesize coordinate, title, subtitle, name = _name, latitude = _latitude, longitude = _longitude, identityNum = _identityNum;
+
+-(void)dealloc {
+    [self.name release], self.name = nil;
+    [self.latitude release], self.latitude = nil;
+    [self.longitude release], self.longitude= nil;
+    [self.identityNum release], self.identityNum = nil;
+    [self.subtitle release], self.subtitle = nil;
+    [self.title release], self.title = nil;
+    [self.imageCollection release], self.imageCollection = nil;
+    
+    [super dealloc];
+}
 
 - (id)initLocationWithName:(NSString *)name latitude:(NSString *)latitude longitude:(NSString *)longitude identityNumber:(NSString *)identityNum {
     self = [super init];
@@ -54,7 +68,7 @@
     requestMethodString = [requestMethodString stringByReplacingOccurrencesOfString:@"{location-id}" withString:self.identityNum];
     NSLog(@"The Locations URL Request string %@", requestMethodString);
     
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    NSMutableDictionary *params = [[[NSMutableDictionary alloc] init] autorelease];
     [appDelegate.instagram requestWithMethodName:requestMethodString params:params httpMethod:@"GET" delegate:self];// append to array, non-blocking
 }
 #pragma mark - IGRequestDelegate
@@ -76,19 +90,30 @@
 }
 
 - (void)request:(IGRequest *)request didLoad:(id)result {
-//    NSLog(@"request did Load %@", result);
+    NSLog(@"request did Load %@", result);
     //data.images.low_resolution
     NSArray *list = [result objectForKey:@"data"];
     
+    int count = 0;
+    
     for (NSDictionary *data in list)
     {
-        NSLog(@"This is data %@", [data objectForKey:@"images"]);
-        NSString *lowResUrl = [[data objectForKey:@"images"] objectForKey:@"low_resolution"];
-        NSLog(@"Low Res URL %@", lowResUrl);
-        
-//        self.imageCollection addObject:<#(id)#>
+        if(count < THUMBNAIL_IMAGES_MAX) {
+            NSString *url = [[[data objectForKey:@"images"] objectForKey:@"thumbnail"] objectForKey:@"url"];
+            NSString *height = [[[data objectForKey:@"images"] objectForKey:@"thumbnail"] objectForKey:@"height"];
+            NSString *width = [[[data objectForKey:@"images"] objectForKey:@"thumbnail"] objectForKey:@"width"];
+            NSString *detailImageUrl = [[[data objectForKey:@"images"] objectForKey:@"low_resolution"] objectForKey:@"url"];
+            
+            BIGLocationImage *locationImageObj = [[[BIGLocationImage alloc] initLocationWithUrlString:url height:height width:width detailImgURL:detailImageUrl] autorelease];
+            NSLog(@"%@ %@ %@ %@", locationImageObj.url, locationImageObj.height, locationImageObj.width, locationImageObj.detailImageURL);
+
+            [self.imageCollection addObject:locationImageObj];
+            
+            count++;
+        }
     }
-    //TODO loading mask is removed here.
+    //Announce that response is done
+    [[self delegate] locationImagesDidFinish:self];
 }
 
 
