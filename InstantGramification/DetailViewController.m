@@ -49,7 +49,7 @@
 #import "DetailViewController.h"
 
 @interface DetailViewController ()
-@property (nonatomic, strong) IBOutlet UIImageView *imageView;
+@property (nonatomic, assign) IBOutlet UIImageView *imageView;
 @end
 
 @implementation DetailViewController
