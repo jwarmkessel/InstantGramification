@@ -28,6 +28,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [TestFlight takeOff:@"f15f4800-3595-4280-a98d-39bf3f89fae2"];
     self.instagram = [[Instagram alloc] initWithClientId:APP_ID
                                                 delegate:nil];
     return YES;
