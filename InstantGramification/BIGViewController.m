@@ -26,6 +26,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
 	// Do any additional setup after loading the view, typically from a nib.
     NSLog(@"View Controller did load");
     BIGAppDelegate* appDelegate = (BIGAppDelegate*)[UIApplication sharedApplication].delegate;
@@ -52,18 +53,6 @@
     BIGAppDelegate* appDelegate = (BIGAppDelegate*)[UIApplication sharedApplication].delegate;
     [appDelegate.instagram authorize:[NSArray arrayWithObjects:@"comments", @"likes", nil]];
 }
-
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-//{
-//    // Check the segue identifier
-//    if ([[segue identifier] isEqualToString:@"displayLocale"])
-//    {
-//        [segue destinationViewController];
-//        //self.mapViewController = [segue destinationViewController];
-//        [self presentModalViewController:self.mapViewController animated:YES];
-//
-//    }
-//}
 
 #pragma - IGSessionDelegate
 

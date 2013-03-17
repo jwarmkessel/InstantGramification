@@ -21,7 +21,6 @@
 /*
 This app isn't ready for the app store because it's tedious, buggy, and just not interesting yet :). Striking these items means more planning and more time.
  
- App's use of Core Location is still buggy.
  Should pause core location when user isn't on the map screen. Not a big fan of auto updating nearby locations after 25M. (Currently handling this by updating after the user walks 25M from the original location rather than adding up the entire distance moved by user even within a 25M radius.)
  
  UX concerns:
