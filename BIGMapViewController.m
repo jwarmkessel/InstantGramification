@@ -168,12 +168,14 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     NSLog(@"didSelectAnnotationView");
     
-    BIGLocation *tempLocation = (BIGLocation *)view.annotation;
-    tempLocation.delegate = self;
-    [tempLocation getCollectionImages];
-    
-    //TODO need delegate from BIGLocation to indicate when request is done processing
-    _currentSelectedLocation = tempLocation;
+    if(view.annotation != mapView.userLocation) {
+        BIGLocation *tempLocation = (BIGLocation *)view.annotation;
+        tempLocation.delegate = self;
+        [tempLocation getCollectionImages];
+        
+        //TODO need delegate from BIGLocation to indicate when request is done processing
+        _currentSelectedLocation = tempLocation;
+    }
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
