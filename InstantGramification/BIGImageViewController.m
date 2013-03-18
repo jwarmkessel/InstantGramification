@@ -28,6 +28,17 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [UIView animateWithDuration:0.3
+                     animations:^(void){
+                         self.loadingMask.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished){
+                         NSLog(@"Loading mask finished");
+                         [self.loadingMask removeFromSuperview];
+                     }
+     ];
+    
     self.imageCollection = [[NSMutableArray alloc] initWithArray:self.locationObj.imageCollection];
     
     if(self.imageCollection.count == 0) {
@@ -37,8 +48,26 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
         noImageLabel.textColor = [UIColor whiteColor];
         noImageLabel.backgroundColor = [UIColor blackColor];
         noImageLabel.text = @"No images at this location, sorry!";
+        noImageLabel.textAlignment = UITextAlignmentCenter;
 //        noImageLabel.textAlignment
     }
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    NSLog(@"The view will appear~");
+    self.loadingMask = [[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.loadingMask.backgroundColor = [UIColor blackColor];
+    self.loadingMask.alpha = 0.5;
+    UILabel *loadingMaskLbl = [[[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)] autorelease];
+    loadingMaskLbl.alpha = 1.0;
+    [self.loadingMask addSubview:loadingMaskLbl];
+    loadingMaskLbl.text =@"loading";
+    loadingMaskLbl.textColor = [UIColor whiteColor];
+    loadingMaskLbl.backgroundColor = [UIColor blackColor];
+    [loadingMaskLbl setCenter:self.loadingMask.center];
+    loadingMaskLbl.textAlignment = UITextAlignmentCenter;
+    
+    [self.view addSubview:self.loadingMask];
 }
 
 - (void)didReceiveMemoryWarning

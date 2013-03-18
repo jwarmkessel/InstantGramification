@@ -16,6 +16,8 @@
 
 @property (retain, nonatomic) NSArray *imageCollection;
 @property (retain, nonatomic) BIGLocation *locationObj;
+@property (retain, nonatomic) UIView *loadingMask;
+
 - (void)setImageCollectionObj:(BIGLocation *)locationObj;
 
 @end
