@@ -16,7 +16,7 @@
 #define METERS_PER_MILE 1609.344
 #define METERS_TO_MILE_CONVERSION 0.00062137
 #define SEARCH_DIST 26
-#define UPDATE_GPS 15
+#define UPDATE_GPS 2
 #define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
 #define MILES_TO_METERS(miles) (miles /METERS_PER_MILE)
 
@@ -90,7 +90,7 @@
 }
 
 - (void) startTask {
-    [NSTimer scheduledTimerWithTimeInterval:UPDATE_GPS
+    self.locationManagerTimer = [NSTimer scheduledTimerWithTimeInterval:UPDATE_GPS
                                      target:self
                                    selector:@selector(actualTask)
                                    userInfo:nil
@@ -107,11 +107,9 @@
     // Make sure your segue name in storyboard is the same as this line
     if ([[segue identifier] isEqualToString:@"displayImageCollection"])
     {
-//        UIViewController *viewController = [[[UIViewController alloc] init] autorelease];
-//        self.imageCollectionViewController = [[[BIGImageViewController alloc] init] autorelease];
-//        [self.imageCollectionViewController setImageCollectionObj:_currentSelectedLocation];
-        // Get reference to the destination view controller
+        [self.locationManagerTimer invalidate];
         self.imageCollectionViewController = (BIGImageViewController *)[segue destinationViewController];
+        [self.imageCollectionViewController setDisplayLoadingMask:1];
         self.imageCollectionViewController.locationObj = _currentSelectedLocation;
     }
 }
@@ -136,31 +134,6 @@
     
 }
 
-// mapView:viewForAnnotation: provides the view for each annotation.
-// This method may be called for all or some of the added annotations.
-// For MapKit provided annotations (eg. MKUserLocation) return nil to use the MapKit provided annotation view.
-- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    MKPinAnnotationView *pinView = nil;
-    if(annotation != mapView.userLocation)
-    {
-        static NSString *defaultPinID = @"com.invasivecode.pin";
-        pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
-        if ( pinView == nil ) pinView = [[[MKPinAnnotationView alloc]
-                                          initWithAnnotation:annotation reuseIdentifier:defaultPinID] autorelease];
-        
-        pinView.pinColor = MKPinAnnotationColorPurple;
-        
-        pinView.canShowCallout = YES;
-        pinView.animatesDrop = YES;
-    }
-    else {
-        [mapView.userLocation setTitle:@"I am here"];
-    }
-    return pinView;}
-
-// mapView:didAddAnnotationViews: is called after the annotation views have been added and positioned in the map.
-// The delegate can implement this method to animate the adding of the annotations views.
-// Use the current positions of the annotation views as the destinations of the animation.
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
     NSLog(@"didAddAnnotationViews");
 }
@@ -168,6 +141,7 @@
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     NSLog(@"didSelectAnnotationView");
     
+
     if(view.annotation != mapView.userLocation) {
         BIGLocation *tempLocation = (BIGLocation *)view.annotation;
         tempLocation.delegate = self;
@@ -186,6 +160,73 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     
 }
+
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    MKPinAnnotationView *pinView = nil;
+    
+    if(annotation != mapView.userLocation)
+    {    
+        static NSString *defaultPinID = @"com.invasivecode.pin";
+        pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
+        if ( pinView == nil ) pinView = [[[MKPinAnnotationView alloc]
+                                          initWithAnnotation:annotation reuseIdentifier:defaultPinID] autorelease];
+        
+        pinView.pinColor = MKPinAnnotationColorPurple;
+        pinView.canShowCallout = YES;
+        pinView.animatesDrop = YES;
+    }
+    else {
+        [mapView.userLocation setTitle:@"I am here"];
+    }
+    return pinView;
+}
+
+//- (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation
+//{
+//    if ([annotation isKindOfClass:[MKUserLocation class]])
+//        return nil;
+//    static NSString* AnnotationIdentifier = @"AnnotationIdentifier";
+//    MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationIdentifier];
+//    if(annotationView)
+//        return annotationView;
+//    else
+//    {
+//        MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationIdentifier];
+//        annotationView.canShowCallout = YES;
+//        
+//        //change here
+//        annotationView.image = [UIImage imageNamed:[NSString stringWithFormat:@"F.png"]];
+//        
+//        UIImage *frame = [UIImage imageNamed:[NSString stringWithFormat:@"F.png"];
+//                      UIImage *image = theImageInFrameInner;
+//                      
+//                      UIGraphicsBeginImageContext(CGSizeMake(pin.size.width, pin.size.height));
+//                      
+//                      [frame drawInRect:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+//                      [image drawInRect:CGRectMake(2, 2, 60, 60)]; // the frame your inner image
+//                      //maybe you should draw the left bottom icon here,
+//                      
+//                      
+//                      //then set back the new image, done
+//                      annotationView.image = UIGraphicsGetImageFromCurrentImageContext();
+//                      
+//                      UIGraphicsEndImageContext();
+//                      
+//                      
+//                      
+//                      
+//                      
+//                      UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+//                      [rightButton addTarget:self action:@selector(writeSomething:) forControlEvents:UIControlEventTouchUpInside];
+//                      [rightButton setTitle:annotation.title forState:UIControlStateNormal];
+//                      
+//                      annotationView.rightCalloutAccessoryView = rightButton;
+//                      annotationView.canShowCallout = YES;
+//                      annotationView.draggable = NO;
+//                      return annotationView;
+//    }
+//    return nil;
+//}
 
 #pragma mark -MKMapViewDelegate
 
@@ -225,14 +266,39 @@
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-    //If original location was set then set the distance traveled.
-    if(self.originalCoordinate != nil) {
-        _traveledDistance = [self.originalCoordinate distanceFromLocation:manager.location];
+    
+    //Check GPS accuracy
+    if(manager.location.horizontalAccuracy) {
+        if (manager.location.horizontalAccuracy < 0)
+        {
+            NSLog(@"No GPS %f", manager.location.horizontalAccuracy);
+        }
+        else if (manager.location.horizontalAccuracy > 163)
+        {
+            float accuracy = manager.location.horizontalAccuracy;
+            NSLog(@"Poor signal %f", accuracy);
+        }
+        else if (manager.location.horizontalAccuracy > 48)
+        {
+            NSLog(@"Average signal");
+            NSLog(@"Strong signal");
+            //If original location was set then set the distance traveled.
+            if(self.originalCoordinate != nil) {
+                _traveledDistance = [self.originalCoordinate distanceFromLocation:manager.location];
+            }
+        }
+        else
+        {
+            NSLog(@"Strong signal");
+            //If original location was set then set the distance traveled.
+            if(self.originalCoordinate != nil) {
+                _traveledDistance = [self.originalCoordinate distanceFromLocation:manager.location];
+            }
+        }
     }
     
-    
     //This is true if gps is accurate and the traveled distance from the original location is greater than the distance required.
-    if(manager.location.horizontalAccuracy < 15 && _traveledDistance >= SEARCH_DIST) {
+    if(manager.location.horizontalAccuracy < 163 && manager.location.horizontalAccuracy >= 0 && _traveledDistance >= SEARCH_DIST) {
         NSLog(@"GPS Appears to be accurate down to 15 meters let's make Instagram Request");
         BIGAppDelegate* appDelegate = (BIGAppDelegate*)[UIApplication sharedApplication].delegate;
  

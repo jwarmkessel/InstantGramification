@@ -54,6 +54,13 @@
 
 @implementation DetailViewController
 
+- (void)dealloc {
+    
+//    [self.image release], self.image = nil;
+    
+    [super dealloc];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

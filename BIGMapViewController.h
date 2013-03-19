@@ -24,5 +24,6 @@
 @property (retain, nonatomic) NSMutableArray *locationPts;
 @property (retain, nonatomic) BIGLocationDataController *locationDataController;
 @property (retain, nonatomic) BIGImageViewController *imageCollectionViewController; //TODO rename file to more appropriate name
+@property (retain, nonatomic) NSTimer* locationManagerTimer;
 
 @end

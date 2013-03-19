@@ -19,19 +19,24 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 @implementation BIGImageViewController
 
 - (void)dealloc {
+    NSLog(@"dealloc getting called too soon?");
     [self.imageCollection release], self.imageCollection = nil;
     [self.locationObj release], self.locationObj = nil;
+    [self.loadingMask release], self.loadingMask = nil;
     
     [super dealloc];
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
+    NSLog(@"collection view did load");
     [super viewDidLoad];
 
-    self.imageCollection = [[NSMutableArray alloc] initWithArray:self.locationObj.imageCollection];
-    
-    if(self.imageCollection.count == 0) {
+    if(!self.imageCollection) {
+        self.imageCollection = [[NSMutableArray alloc] initWithArray:self.locationObj.imageCollection];
+    }
+
+    if([self.imageCollection count] == 0) {
         UILabel *noImageLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 44.0f, 320.0f, 44.0f)] autorelease];
         [self.view addSubview:noImageLabel];
         
@@ -39,25 +44,31 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
         noImageLabel.backgroundColor = [UIColor blackColor];
         noImageLabel.text = @"No images at this location, sorry!";
         noImageLabel.textAlignment = UITextAlignmentCenter;
-//        noImageLabel.textAlignment
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    NSLog(@"The view will appear~");
-    self.loadingMask = [[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.loadingMask.backgroundColor = [UIColor blackColor];
-    self.loadingMask.alpha = 0.5;
-    UILabel *loadingMaskLbl = [[[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)] autorelease];
-    loadingMaskLbl.alpha = 1.0;
-    [self.loadingMask addSubview:loadingMaskLbl];
-    loadingMaskLbl.text =@"loading";
-    loadingMaskLbl.textColor = [UIColor whiteColor];
-    loadingMaskLbl.backgroundColor = [UIColor blackColor];
-    [loadingMaskLbl setCenter:self.loadingMask.center];
-    loadingMaskLbl.textAlignment = UITextAlignmentCenter;
+    NSLog(@"collection view will appear");
+
+    if(showLoadingMask) {
+        NSLog(@"show the loading mask");
+        self.loadingMask = [[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+        self.loadingMask.backgroundColor = [UIColor blackColor];
+        self.loadingMask.alpha = 0.5;
+        UILabel *loadingMaskLbl = [[[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)] autorelease];
+        loadingMaskLbl.alpha = 1.0;
+        [self.loadingMask addSubview:loadingMaskLbl];
+        loadingMaskLbl.text =@"loading";
+        loadingMaskLbl.textColor = [UIColor whiteColor];
+        loadingMaskLbl.backgroundColor = [UIColor blackColor];
+        [loadingMaskLbl setCenter:self.loadingMask.center];
+        loadingMaskLbl.textAlignment = UITextAlignmentCenter;
+        
+        [self.view addSubview:self.loadingMask];
+
+    }
     
-    [self.view addSubview:self.loadingMask];
+    NSLog(@"End of viewWillAppear");
 }
 
 - (void)didReceiveMemoryWarning
@@ -72,11 +83,13 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 }
 
 - (void)collectionView:(PSUICollectionView *)collectionView didSelectItemAtIndexPath: (NSIndexPath *)indexPath {
+    NSLog(@"didSelectItemAtIndexPath");
     [self performSegueWithIdentifier:@"displayDetailedImage" sender:self];
 }
 
-- (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
-{
+- (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSLog(@"cellForItemAtIndexPath");
     // we're going to use a custom UICollectionViewCell, which will hold an image and its label
 
     Cell *cell = [cv dequeueReusableCellWithReuseIdentifier:kCellID forIndexPath:indexPath];
@@ -95,7 +108,6 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
                 NSMutableData *response = [request rawResponseData];
                 cell.image.image = [UIImage imageWithData:response];
                 
-                NSLog(@"DIDENDDISPLAYCELL");
                 // First figure out how many sections there are
                 NSInteger lastSectionIndex = [self.collectionView numberOfSections] - 1;
                 
@@ -106,26 +118,25 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
                 // Now just construct the index path
                 NSIndexPath *pathToLastRow = [NSIndexPath indexPathForRow:lastRowIndex inSection:lastSectionIndex];
                 
-                if([pathToLastRow isEqual:indexPath]) {
-                    NSLog(@"This is the last cell");
-                    [UIView animateWithDuration:0.3
-                                     animations:^(void){
-                                         self.loadingMask.alpha = 0.0;
-                                     }
-                                     completion:^(BOOL finished){
-                                         NSLog(@"Loading mask finished");
-                                         [self.loadingMask removeFromSuperview];
-                                     }
-                     ];
-                    
+                if(showLoadingMask) {
+                    if([pathToLastRow isEqual:indexPath]) {
+                        NSLog(@"This is the last cell");
+                        [UIView animateWithDuration:0.3
+                                         animations:^(void){
+                                             self.loadingMask.alpha = 0.0;
+                                         }
+                                         completion:^(BOOL finished){
+                                             NSLog(@"Loading mask finished");
+                                             [self.loadingMask retain];
+                                             [self.loadingMask removeFromSuperview];
+                                         }
+                         ];
+                    }
                 }
-
             }
         });
     });
     
-    
-
     return cell;
 }
 
@@ -135,6 +146,7 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 {
     if ([[segue identifier] isEqualToString:@"displayDetailedImage"])
     {
+        [self setDisplayLoadingMask:0];
         NSIndexPath *selectedIndexPath = [[self.collectionView indexPathsForSelectedItems] objectAtIndex:0];
 
         BIGLocationImage *location = (BIGLocationImage *)[self.imageCollection objectAtIndex:selectedIndexPath.row];
@@ -158,6 +170,10 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
     NSLog(@"success! setimagecollectionobj called %@", locationImageObj.url);
     
     [self.imageCollection initWithArray:locationObj.imageCollection];
+}
+
+- (void)setDisplayLoadingMask:(int)display {
+    showLoadingMask = display;
 }
 
 @end
