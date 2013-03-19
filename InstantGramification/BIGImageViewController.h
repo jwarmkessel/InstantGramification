@@ -12,7 +12,7 @@
 @class BIGLocationImage;
 @class BIGLocation;
 
-@interface BIGImageViewController : PSUICollectionViewController_
+@interface BIGImageViewController : PSUICollectionViewController_ <PSUICollectionViewDelegateFlowLayout_, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout>
 
 @property (retain, nonatomic) NSArray *imageCollection;
 @property (retain, nonatomic) BIGLocation *locationObj;

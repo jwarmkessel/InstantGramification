@@ -29,16 +29,6 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 {
     [super viewDidLoad];
 
-    [UIView animateWithDuration:0.3
-                     animations:^(void){
-                         self.loadingMask.alpha = 0.0;
-                     }
-                     completion:^(BOOL finished){
-                         NSLog(@"Loading mask finished");
-                         [self.loadingMask removeFromSuperview];
-                     }
-     ];
-    
     self.imageCollection = [[NSMutableArray alloc] initWithArray:self.locationObj.imageCollection];
     
     if(self.imageCollection.count == 0) {
@@ -104,9 +94,37 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
             if (!error) {
                 NSMutableData *response = [request rawResponseData];
                 cell.image.image = [UIImage imageWithData:response];
+                
+                NSLog(@"DIDENDDISPLAYCELL");
+                // First figure out how many sections there are
+                NSInteger lastSectionIndex = [self.collectionView numberOfSections] - 1;
+                
+                // Then grab the number of rows in the last section
+                
+                NSInteger lastRowIndex = [self.collectionView numberOfItemsInSection:lastSectionIndex] -1;
+                
+                // Now just construct the index path
+                NSIndexPath *pathToLastRow = [NSIndexPath indexPathForRow:lastRowIndex inSection:lastSectionIndex];
+                
+                if([pathToLastRow isEqual:indexPath]) {
+                    NSLog(@"This is the last cell");
+                    [UIView animateWithDuration:0.3
+                                     animations:^(void){
+                                         self.loadingMask.alpha = 0.0;
+                                     }
+                                     completion:^(BOOL finished){
+                                         NSLog(@"Loading mask finished");
+                                         [self.loadingMask removeFromSuperview];
+                                     }
+                     ];
+                    
+                }
+
             }
         });
     });
+    
+    
 
     return cell;
 }
