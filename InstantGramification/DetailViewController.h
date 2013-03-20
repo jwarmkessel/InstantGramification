@@ -50,8 +50,6 @@
 
 @interface DetailViewController : UIViewController
 
-@property (retain, strong)NSString *imageURL;
-@property (retain, strong)UIView *loadingMask;
 @property (retain, strong)UIImage *detailImage;
 
 @end

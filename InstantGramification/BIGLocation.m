@@ -99,17 +99,15 @@
     
     for (NSDictionary *data in list)
     {
-        NSString *url = [[[data objectForKey:@"images"] objectForKey:@"thumbnail"] objectForKey:@"url"];
+        NSString *url = [[[data objectForKey:@"images"] objectForKey:@"low_resolution"] objectForKey:@"url"];
         NSString *height = [[[data objectForKey:@"images"] objectForKey:@"thumbnail"] objectForKey:@"height"];
         NSString *width = [[[data objectForKey:@"images"] objectForKey:@"thumbnail"] objectForKey:@"width"];
-        NSString *detailImageUrl = [[[data objectForKey:@"images"] objectForKey:@"low_resolution"] objectForKey:@"url"];
         
-        BIGLocationImage *locationImageObj = [[[BIGLocationImage alloc] initLocationWithUrlString:url height:height width:width detailImgURL:detailImageUrl] autorelease];
+        BIGLocationImage *locationImageObj = [[[BIGLocationImage alloc] initLocationWithUrlString:url height:height width:width] autorelease];
 
         [self.imageCollection addObject:locationImageObj];
         
         count++;
-        NSLog(@"The count %d", count);
         
         //We're done when we get all the images we want.
         if (count >= THUMBNAIL_IMAGES_MAX) break;

@@ -11,7 +11,7 @@
 #import "Cell.h"
 #import "BIGLocationImage.h"
 #import "BIGLocation.h"
-#import <ASIHTTPRequest.h>
+#import <SDWebImage/UIImageView+WebCache.h>
 
 NSString *kDetailedViewControllerID = @"DetailView";    // view controller storyboard id
 NSString *kCellID = @"cellID";                          // UICollectionViewCell storyboard id
@@ -90,61 +90,46 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 - (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     NSLog(@"cellForItemAtIndexPath");
-    // we're going to use a custom UICollectionViewCell, which will hold an image and its label
 
     Cell *cell = [cv dequeueReusableCellWithReuseIdentifier:kCellID forIndexPath:indexPath];
     
     BIGLocationImage* locationImage = [self.imageCollection objectAtIndex:indexPath.row];
-    
-    dispatch_queue_t imageQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_async(imageQueue, ^{
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSURL *url = [NSURL URLWithString:locationImage.url];
-            ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:url] autorelease];
-            NSError *error = [request error];
-            [request startSynchronous];
 
-            if (!error) {
-                NSMutableData *response = [request rawResponseData];
-                cell.image.image = [UIImage imageWithData:response];
-                
-                //preload detail image
-                [locationImage getDetailImage];
-                
-                // First figure out how many sections there are
-                NSInteger lastSectionIndex = [self.collectionView numberOfSections] - 1;
-                
-                // Then grab the number of rows in the last section
-                
-                NSInteger lastRowIndex = [self.collectionView numberOfItemsInSection:lastSectionIndex] -1;
-                
-                // Now just construct the index path
-                NSIndexPath *pathToLastRow = [NSIndexPath indexPathForRow:lastRowIndex inSection:lastSectionIndex];
-                
-                if(showLoadingMask) {
-                    if([pathToLastRow isEqual:indexPath]) {
-                        NSLog(@"This is the last cell");
-                        [UIView animateWithDuration:0.3
-                                         animations:^(void){
-                                             self.loadingMask.alpha = 0.0;
-                                         }
-                                         completion:^(BOOL finished){
-                                             NSLog(@"Loading mask finished");
-                                             [self.loadingMask retain];
-                                             [self.loadingMask removeFromSuperview];
-                                         }
-                         ];
-                    }
-                }
-            }
-        });
-    });
+    //Using SDWebImage to load view asynchronously.
+    [cell.image setImageWithURL:[NSURL URLWithString:locationImage.url]
+                   placeholderImage:nil
+                      completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {  
+                          if(!error) {
+                              
+                              locationImage.detailImage = image;
+                              
+                              //Check if the cell is the last in the row. If the image is finished loading then remove the loading mask.
+                              NSInteger lastSectionIndex = [self.collectionView numberOfSections] - 1;
+                              NSInteger lastRowIndex = [self.collectionView numberOfItemsInSection:lastSectionIndex] -1;
+                              NSIndexPath *pathToLastRow = [NSIndexPath indexPathForRow:lastRowIndex inSection:lastSectionIndex];
+                              
+                              if(showLoadingMask) {
+                                  if([pathToLastRow isEqual:indexPath]) {
+                                      NSLog(@"This is the last cell");
+                                      [UIView animateWithDuration:0.3
+                                                       animations:^(void){
+                                                           self.loadingMask.alpha = 0.0;
+                                                       }
+                                                       completion:^(BOOL finished){
+                                                           NSLog(@"Loading mask finished");
+                                                           [self.loadingMask retain];
+                                                           [self.loadingMask removeFromSuperview];
+                                                       }
+                                       ];
+                                  }
+                              }
+                          }
+                      }
+     ];
     
     return cell;
 }
 
-// the user tapped a collection item, load and set the image on the detail view controller
-//
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     //Since the images will already be loaded there isn't a need to have loading mask.
