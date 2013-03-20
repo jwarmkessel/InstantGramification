@@ -160,10 +160,8 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
-    NSLog(@"didSelectAnnotationView");
-    self.view.userInteractionEnabled = NO;
-
     if(view.annotation != mapView.userLocation) {
+        self.view.userInteractionEnabled = NO;
         BIGLocation *tempLocation = (BIGLocation *)view.annotation;
         _currentSelectedLocation = tempLocation;
         
