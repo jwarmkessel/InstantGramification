@@ -47,7 +47,6 @@
  */
 
 #import "DetailViewController.h"
-#import <ASIHTTPRequest.h>
 
 @interface DetailViewController ()
 @property (nonatomic, assign) IBOutlet UIImageView *imageView;

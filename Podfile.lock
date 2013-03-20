@@ -1,10 +1,18 @@
 
-DEPENDENCIES: 
-- ASIHTTPRequest (~> 1.8.1)
-- PSTCollectionView (~> 0.0.1)
-- SDWebImage (~> 3.2)
-- TestFlightSDK (~> 1.2.4.beta)
-- instagram-ios-sdk (~> 0.0.1)
+COCOAPODS: 0.16.4
+
+SPEC CHECKSUMS: 
+  ASIHTTPRequest/ASIWebPageRequest: e606d2df58b0aace6c1cf1d39a08d3484f91324a
+  PSTCollectionView: 5461a4fbe17eb1e2d2fa7388105e708deb6dd1e7
+  instagram-ios-sdk: b337c659943d061bb51cedfa280ff95f68dbe08c
+  ASIHTTPRequest: e606d2df58b0aace6c1cf1d39a08d3484f91324a
+  ASIHTTPRequest/CloudFiles: e606d2df58b0aace6c1cf1d39a08d3484f91324a
+  SDWebImage: 8082fe8d658ccafaaecd9e5ecda12ed01f09ba9c
+  SBJson: cc373c9eed9314a45715e4fb77a1415c45fa056e
+  Reachability: 1c8584c5f26fa776695efef95caaa50402c94cfb
+  SDWebImage/MapKit: 8082fe8d658ccafaaecd9e5ecda12ed01f09ba9c
+  ASIHTTPRequest/S3: e606d2df58b0aace6c1cf1d39a08d3484f91324a
+  TestFlightSDK: aeec97fd81096753d53b942f030a443520a087f4
 
 PODS: 
 - ASIHTTPRequest (1.8.1): 
@@ -28,17 +36,9 @@ PODS:
 - instagram-ios-sdk (0.0.1): 
   - SBJson (= 2.2.3)
 
-SPEC CHECKSUMS: 
-  Reachability: 1c8584c5f26fa776695efef95caaa50402c94cfb
-  SBJson: cc373c9eed9314a45715e4fb77a1415c45fa056e
-  PSTCollectionView: 5461a4fbe17eb1e2d2fa7388105e708deb6dd1e7
-  ASIHTTPRequest/CloudFiles: e606d2df58b0aace6c1cf1d39a08d3484f91324a
-  ASIHTTPRequest/S3: e606d2df58b0aace6c1cf1d39a08d3484f91324a
-  ASIHTTPRequest/ASIWebPageRequest: e606d2df58b0aace6c1cf1d39a08d3484f91324a
-  TestFlightSDK: aeec97fd81096753d53b942f030a443520a087f4
-  SDWebImage/MapKit: 8082fe8d658ccafaaecd9e5ecda12ed01f09ba9c
-  SDWebImage: 8082fe8d658ccafaaecd9e5ecda12ed01f09ba9c
-  instagram-ios-sdk: b337c659943d061bb51cedfa280ff95f68dbe08c
-  ASIHTTPRequest: e606d2df58b0aace6c1cf1d39a08d3484f91324a
-
-COCOAPODS: 0.16.4
+DEPENDENCIES: 
+- ASIHTTPRequest (~> 1.8.1)
+- PSTCollectionView (~> 0.0.1)
+- SDWebImage (~> 3.2)
+- TestFlightSDK (~> 1.2.4.beta)
+- instagram-ios-sdk (~> 0.0.1)
