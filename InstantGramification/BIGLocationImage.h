@@ -15,6 +15,6 @@
 @property (retain, strong)NSString *url;
 @property (retain, strong)UIImage *detailImage;
 
-- (id)initLocationWithUrlString:(NSString *)urlStr height:(NSString *)height width:(NSString *)width detailImgURL:(NSString *)detailImgURL;
+- (id)initLocationWithUrlString:(NSString *)urlStr height:(NSString *)height width:(NSString *)width;
 
 @end

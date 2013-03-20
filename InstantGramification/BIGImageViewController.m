@@ -49,11 +49,11 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 
 - (void)viewWillAppear:(BOOL)animated {
     NSLog(@"collection view will appear");
-    self.loadingMask = [[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
-    [self.view addSubview:self.loadingMask];
-    UILabel *loadingMaskLbl = [[[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)] autorelease];
-    
-    if(showLoadingMask) {        
+    if(showLoadingMask) {
+        self.loadingMask = [[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+        [self.view addSubview:self.loadingMask];
+        UILabel *loadingMaskLbl = [[[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)] autorelease];
+
         self.loadingMask.backgroundColor = [UIColor blackColor];
         self.loadingMask.alpha = 0.5;
         
