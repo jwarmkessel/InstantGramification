@@ -32,6 +32,7 @@
     [self.mapView release], self.mapView = nil;
     [self.locationDataController release], self.locationDataController = nil;
     [self.locationManagerTimer release], self.locationManagerTimer = nil;
+    [self.loadingMask release], self.loadingMask = nil;
     
     [super dealloc];
 }
@@ -66,8 +67,6 @@
     //Initalize data controller for locations
     self.locationDataController = [[BIGLocationDataController alloc]init];
     
-    self.imageCollectionViewController = [[BIGImageViewController alloc] init];
-    
     //Disable the back button because we've already been granted an access token from Insatgram
     self.navigationItem.hidesBackButton = YES;
     
@@ -89,6 +88,27 @@
     [self startTask];
 }
 
+- (void) viewWillAppear:(BOOL)animated {
+    //Enable or re-enable user interaction
+    self.view.userInteractionEnabled = YES;
+
+    if(!self.nearbyLocationPoints) {
+        self.loadingMask = [[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+        [self.view addSubview:self.loadingMask];
+        UILabel *loadingMaskLbl = [[[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)] autorelease];
+        
+        self.loadingMask.backgroundColor = [UIColor blackColor];
+        self.loadingMask.alpha = 0.5;
+        
+        loadingMaskLbl.alpha = 1.0;
+        [self.loadingMask addSubview:loadingMaskLbl];
+        loadingMaskLbl.text =@"loading";
+        loadingMaskLbl.textColor = [UIColor whiteColor];
+        loadingMaskLbl.backgroundColor = [UIColor blackColor];
+        [loadingMaskLbl setCenter:self.loadingMask.center];
+        loadingMaskLbl.textAlignment = UITextAlignmentCenter;
+    }
+}
 //Start updating the GPS
 - (void) startTask {
     self.locationManagerTimer = [NSTimer scheduledTimerWithTimeInterval:UPDATE_GPS
@@ -99,7 +119,7 @@
 }
 
 - (void) actualTask {
-    NSLog(@"Starting location service...");
+    NSLog(@"GPS ping");
     [self.locationManager startUpdatingLocation];
 }
 
@@ -108,7 +128,6 @@
     // Make sure your segue name in storyboard is the same as this line
     if ([[segue identifier] isEqualToString:@"displayImageCollection"])
     {
-        [self.locationManagerTimer invalidate];
         self.imageCollectionViewController = (BIGImageViewController *)[segue destinationViewController];
         [self.imageCollectionViewController setDisplayLoadingMask:1];
         self.imageCollectionViewController.locationObj = _currentSelectedLocation;
@@ -141,7 +160,7 @@
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     NSLog(@"didSelectAnnotationView");
-    
+    self.view.userInteractionEnabled = NO;
 
     if(view.annotation != mapView.userLocation) {
         BIGLocation *tempLocation = (BIGLocation *)view.annotation;
@@ -250,7 +269,7 @@
     }
     
     //This is true if gps is accurate and the traveled distance from the original location is greater than the distance required.
-    if(manager.location.horizontalAccuracy < 163 && manager.location.horizontalAccuracy >= 0 && _traveledDistance >= SEARCH_DIST) {
+    if(_traveledDistance >= SEARCH_DIST) {
         NSLog(@"GPS Appears to be accurate down to 15 meters let's make Instagram Request");
         BIGAppDelegate* appDelegate = (BIGAppDelegate*)[UIApplication sharedApplication].delegate;
  
@@ -306,6 +325,9 @@
 
 - (void)request:(IGRequest *)request didLoad:(id)result {
     NSLog(@"request did Load");
+    
+    //TODO this can be improved. 
+    
     //Upon receiving the parsed request store locations in a data controller
     NSArray *list = [result objectForKey:@"data"];
     
@@ -316,15 +338,22 @@
     }
     
     //Keep dataController isolated though it's not necessary at this point.
-    self.locationPts = [[NSMutableArray alloc] initWithArray:self.locationDataController.locationList];
+    self.nearbyLocationPoints = [[NSMutableArray alloc] initWithArray:self.locationDataController.locationList];
     
-    for(int i = 0; i<self.locationPts.count; i++) {
-        BIGLocation *location = [[self.locationPts objectAtIndex:i] autorelease];
+    for(int i = 0; i<self.nearbyLocationPoints.count; i++) {
+        BIGLocation *location = [[self.nearbyLocationPoints objectAtIndex:i] autorelease];
         [self.mapView addAnnotation:location];
     }
-
     
-    //TODO loading mask is removed here.
+    //remove loading mask
+    [UIView animateWithDuration:0.3
+                     animations:^(void){
+                         self.loadingMask.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished){
+                         [self.loadingMask removeFromSuperview];
+                     }
+     ];
 }
 
 #pragma mark - BIGLocationImgCollDelegate

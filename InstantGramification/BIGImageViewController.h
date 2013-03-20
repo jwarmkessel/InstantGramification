@@ -7,12 +7,11 @@
 //
 
 #import "PSTCollectionView.h"
-#import <ASIHTTPRequest.h>
 
 @class BIGLocationImage;
 @class BIGLocation;
 
-@interface BIGImageViewController : PSUICollectionViewController_ <PSUICollectionViewDelegateFlowLayout_, PSTCollectionViewDelegate, PSTCollectionViewDelegateFlowLayout> {
+@interface BIGImageViewController : PSUICollectionViewController_ {
     int showLoadingMask;
 }
 

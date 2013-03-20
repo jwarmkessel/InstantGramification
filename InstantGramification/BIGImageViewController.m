@@ -49,13 +49,14 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 
 - (void)viewWillAppear:(BOOL)animated {
     NSLog(@"collection view will appear");
-
-    if(showLoadingMask) {
-        NSLog(@"show the loading mask");
-        self.loadingMask = [[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.loadingMask = [[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.view addSubview:self.loadingMask];
+    UILabel *loadingMaskLbl = [[[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)] autorelease];
+    
+    if(showLoadingMask) {        
         self.loadingMask.backgroundColor = [UIColor blackColor];
         self.loadingMask.alpha = 0.5;
-        UILabel *loadingMaskLbl = [[[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)] autorelease];
+        
         loadingMaskLbl.alpha = 1.0;
         [self.loadingMask addSubview:loadingMaskLbl];
         loadingMaskLbl.text =@"loading";
@@ -63,12 +64,7 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
         loadingMaskLbl.backgroundColor = [UIColor blackColor];
         [loadingMaskLbl setCenter:self.loadingMask.center];
         loadingMaskLbl.textAlignment = UITextAlignmentCenter;
-        
-        [self.view addSubview:self.loadingMask];
-
     }
-    
-    NSLog(@"End of viewWillAppear");
 }
 
 - (void)didReceiveMemoryWarning
@@ -88,9 +84,6 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 }
 
 - (PSUICollectionViewCell *)collectionView:(PSUICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    NSLog(@"cellForItemAtIndexPath");
-
     Cell *cell = [cv dequeueReusableCellWithReuseIdentifier:kCellID forIndexPath:indexPath];
     
     BIGLocationImage* locationImage = [self.imageCollection objectAtIndex:indexPath.row];
@@ -110,13 +103,11 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
                               
                               if(showLoadingMask) {
                                   if([pathToLastRow isEqual:indexPath]) {
-                                      NSLog(@"This is the last cell");
                                       [UIView animateWithDuration:0.3
                                                        animations:^(void){
                                                            self.loadingMask.alpha = 0.0;
                                                        }
                                                        completion:^(BOOL finished){
-                                                           NSLog(@"Loading mask finished");
                                                            [self.loadingMask retain];
                                                            [self.loadingMask removeFromSuperview];
                                                        }

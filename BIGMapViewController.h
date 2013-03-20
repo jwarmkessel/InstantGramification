@@ -21,9 +21,10 @@
 @property (retain, nonatomic) CLLocationManager *locationManager;
 @property (retain, nonatomic) CLLocation *originalCoordinate;
 @property (retain, nonatomic) IBOutlet MKMapView *mapView;
-@property (retain, nonatomic) NSMutableArray *locationPts;
+@property (retain, nonatomic) NSMutableArray *nearbyLocationPoints;
 @property (retain, nonatomic) BIGLocationDataController *locationDataController;
-@property (retain, nonatomic) BIGImageViewController *imageCollectionViewController; //TODO rename file to more appropriate name
+@property (retain, nonatomic) BIGImageViewController *imageCollectionViewController; 
+@property (retain, nonatomic) UIView *loadingMask;
 @property (retain, nonatomic) NSTimer* locationManagerTimer;
 
 @end
