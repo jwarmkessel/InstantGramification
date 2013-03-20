@@ -29,7 +29,6 @@ This app isn't ready for the app store because it's buggy and just not interesti
         - Hallway testing.
 
  UX concerns:
-        - Annoying wait with the segue to collection view while request is being made to instagram.
         - Quick tutorial on what the app does.
         - Dropped pins should display at least the title and subtitle for the user to know a little about a location they're about to select. Sexier with an image. Could be interesing to have the user click on a location and a cluster of images unfold showing some profile pictures of the people who have been there. Or the total number of images taken at a location which may signfiy popularity of a location.
          - Allow user to back out of selected location by stopping url request. So I would have to create NSOperationQueue's than use the easy access global ones so I could just cancel them.
