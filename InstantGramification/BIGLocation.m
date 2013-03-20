@@ -14,7 +14,7 @@
 #define THUMBNAIL_IMAGES_MAX 5
 
 @implementation BIGLocation
-@synthesize coordinate, title, subtitle, name = _name, latitude = _latitude, longitude = _longitude, identityNum = _identityNum;
+@synthesize coordinate, title, subtitle, name = _name, latitude = _latitude, longitude = _longitude, identityNum = _identityNum, distanceFromUser = _distanceFromUser;
 
 -(void)dealloc {
     [self.name release], self.name = nil;
@@ -24,22 +24,24 @@
     [self.subtitle release], self.subtitle = nil;
     [self.title release], self.title = nil;
     [self.imageCollection release], self.imageCollection = nil;
-    
+
     [super dealloc];
 }
 
-- (id)initLocationWithName:(NSString *)name latitude:(NSString *)latitude longitude:(NSString *)longitude identityNumber:(NSString *)identityNum {
+- (id)initLocationWithName:(NSString *)name latitude:(NSString *)latitude longitude:(NSString *)longitude identityNumber:(NSString *)identityNum  distanceFromUserInMeters:(float)distance{
     self = [super init];
     if (self) {
         self.name = name;
         self.latitude = latitude;
         self.longitude = longitude;
         self.identityNum = identityNum;
-
+        self.distanceFromUser = distance;
+        
         return self;
     }
     return nil;
 }
+
 
 //Conforms to MKAnnotation protocol
 - (CLLocationCoordinate2D)coordinate
@@ -114,6 +116,7 @@
     }
 
     //Announce that response is done
+    NSLog(@"location Images did finish5");
     [[self delegate] locationImagesDidFinish:self];
 }
 

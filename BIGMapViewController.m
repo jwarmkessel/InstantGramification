@@ -11,6 +11,7 @@
 #import "BIGLocationDataController.h"
 #import "BIGLocation.h"
 #import "BIGImageViewController.h"
+#import "BIGMapMediaReferenceloader.h"
 
 #define M_PI   3.14159265358979323846264338327950288   /* pi */
 #define METERS_PER_MILE 1609.344
@@ -164,11 +165,9 @@
 
     if(view.annotation != mapView.userLocation) {
         BIGLocation *tempLocation = (BIGLocation *)view.annotation;
-        tempLocation.delegate = self;
-        [tempLocation getCollectionImages];
-        
-        //TODO need delegate from BIGLocation to indicate when request is done processing
         _currentSelectedLocation = tempLocation;
+        
+        [self performSegueWithIdentifier:@"displayImageCollection" sender:self];
     }
 }
 
@@ -268,9 +267,9 @@
         }
     }
     
+    NSLog(@"The initial traveled distance %f", _traveledDistance);
     //This is true if gps is accurate and the traveled distance from the original location is greater than the distance required.
     if(_traveledDistance >= SEARCH_DIST) {
-        NSLog(@"GPS Appears to be accurate down to 15 meters let's make Instagram Request");
         BIGAppDelegate* appDelegate = (BIGAppDelegate*)[UIApplication sharedApplication].delegate;
  
         NSString *latString = [[[NSString alloc] initWithFormat:@"%g", manager.location.coordinate.latitude] autorelease];
@@ -326,24 +325,29 @@
 - (void)request:(IGRequest *)request didLoad:(id)result {
     NSLog(@"request did Load");
     
-    //TODO this can be improved. 
+    //TODO this can be improved.
+    //First I want to sort the list by distance from the user. So I need a single location, pause updating where the user is
     
     //Upon receiving the parsed request store locations in a data controller
     NSArray *list = [result objectForKey:@"data"];
     
     for (NSDictionary *data in list)
     {
+        CLLocation *nearbyLocation = [[CLLocation alloc]initWithLatitude:[[data objectForKey:@"latitude"] doubleValue] longitude:[[data objectForKey:@"longitude"] doubleValue]];
+
+        CGFloat distanceFromUser = [self.locationManager.location distanceFromLocation:nearbyLocation];
+        NSLog(@"Distance %f", distanceFromUser);
         //Add to the list of friends
-        [self.locationDataController addLocationWithName:[data objectForKey:@"name"] latitude:[data objectForKey:@"latitude"] longitude:[data objectForKey:@"longitude"] identityNumber:[data objectForKey:@"id"]];
+        [self.locationDataController addLocationWithName:[data objectForKey:@"name"] latitude:[data objectForKey:@"latitude"] longitude:[data objectForKey:@"longitude"] identityNumber:[data objectForKey:@"id"] distanceFromUserInMeters:distanceFromUser];
     }
     
-    //Keep dataController isolated though it's not necessary at this point.
-    self.nearbyLocationPoints = [[NSMutableArray alloc] initWithArray:self.locationDataController.locationList];
+    //Prototyping*********************************************
     
-    for(int i = 0; i<self.nearbyLocationPoints.count; i++) {
-        BIGLocation *location = [[self.nearbyLocationPoints objectAtIndex:i] autorelease];
-        [self.mapView addAnnotation:location];
-    }
+    self.nearbyLocationPoints = [[NSMutableArray alloc] initWithArray:[self.locationDataController locationList]];
+    
+    BIGMapMediaReferenceloader *mrloader = [[BIGMapMediaReferenceloader alloc]initWithArray:self.nearbyLocationPoints];
+    [mrloader setDelegate:self];
+    [mrloader startMediaReferenceRequest];
     
     //remove loading mask
     [UIView animateWithDuration:0.3
@@ -356,9 +360,23 @@
      ];
 }
 
-#pragma mark - BIGLocationImgCollDelegate
-- (void)locationImagesDidFinish:(BIGLocation *)controller {
-    [self performSegueWithIdentifier:@"displayImageCollection" sender:self];
+#pragma mark - BIGMapMediaReferenceLoaderDelegate
+- (void)didCompleteBatchDownload:(BIGLocation *)newLocation {
+    [self.mapView addAnnotation:newLocation];
+    
+    //remove loading mask
+    [UIView animateWithDuration:0.3
+                     animations:^(void){
+                         self.loadingMask.alpha = 0.0;
+                     }
+                     completion:^(BOOL finished){
+                         [self.loadingMask removeFromSuperview];
+                     }
+     ];
+}
+
+- (void)didCompleteDownload {
+    
 }
 
 @end

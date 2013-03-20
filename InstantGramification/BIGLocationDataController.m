@@ -14,6 +14,7 @@
 @end
 
 @implementation BIGLocationDataController
+@synthesize locationList = _locationList;
 
 - (id)init {
     if (self = [super init]) {
@@ -43,8 +44,9 @@
     return [self.locationList count];
 }
 
-- (void)addLocationWithName:(NSString *)name latitude:(NSString *)latitude longitude:(NSString *)longitude identityNumber:(NSString *)identityNum {
-    BIGLocation *newLocation= [[BIGLocation alloc] initLocationWithName:name latitude:latitude longitude:longitude identityNumber:identityNum];
+- (void)addLocationWithName:(NSString *)name latitude:(NSString *)latitude longitude:(NSString *)longitude identityNumber:(NSString *)identityNum distanceFromUserInMeters:(float)distance {
+    
+    BIGLocation *newLocation= [[BIGLocation alloc] initLocationWithName:name latitude:latitude longitude:longitude identityNumber:identityNum distanceFromUserInMeters:distance];
 
     [self.locationList addObject:newLocation];
 }

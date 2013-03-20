@@ -16,6 +16,6 @@
 
 - (NSUInteger)countOfList;
 - (BIGLocation *)objectInListAtIndex:(NSUInteger)theIndex;
-- (void)addLocationWithName:(NSString *)name latitude:(NSString *)latitude longitude:(NSString *)longitude identityNumber:(NSString *)identityNum;
+- (void)addLocationWithName:(NSString *)name latitude:(NSString *)latitude longitude:(NSString *)longitude identityNumber:(NSString *)identityNum distanceFromUserInMeters:(float)distance;
 
 @end

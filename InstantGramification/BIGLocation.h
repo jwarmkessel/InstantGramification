@@ -25,10 +25,12 @@
 @property (nonatomic, copy) NSString *subtitle;
 @property (nonatomic, copy) NSString *title;
 @property (retain, nonatomic) NSMutableArray *imageCollection;
+@property(nonatomic) float distanceFromUser;
+
 
 @property (assign, nonatomic) id <BIGLocationImgCollDelegate> delegate;
 
-- (id)initLocationWithName:(NSString *)name latitude:(NSString *)latitude longitude:(NSString *)longitude identityNumber:(NSString *)identityNum;
+- (id)initLocationWithName:(NSString *)name latitude:(NSString *)latitude longitude:(NSString *)longitude identityNumber:(NSString *)identityNum distanceFromUserInMeters:(float)distance;
 - (void) getCollectionImages;
 @end
 
