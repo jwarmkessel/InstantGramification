@@ -29,10 +29,6 @@ This app isn't ready for the app store because it's tedious, buggy, and just not
  
  The user should be doing something with the app. I think it's better that the user update the list of locations rather than walk so many meters to have app update on it's own (Also, user is draining battery life by checking distance traveled all the time.) If auto-updating is necesary than there should be a progress bar or some indication of when or how far the user has moved. Settings for when to update would be needed.
  
- //TODO: Needs a loading mask when requests are being made to Instagram.
- 
- //TODO: I should put the request code for the detailed view BIGLocation object. Perhaps load this when the user selects a location. Does the user care about a detailed view? Comments would be interesting. Use a delegate to set a flag or BIGImageViewController.
- 
  Caching the images would contribute a lot to the experience if the user is going in and out of the  collection view and making a call to update images in the background to minimize waiting.
  
  Number of comments beneath the thumbnail images would make the app more interesting. User cares what other people care to talk about especially if it's focused and in numbers. 

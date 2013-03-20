@@ -143,7 +143,6 @@
 				835FDCDB16F27C1300FA3EC5 /* BIGLocation.m */,
 				832C0B6316F3EC0E00ABAD02 /* BIGLocationImage.h */,
 				832C0B6416F3EC0E00ABAD02 /* BIGLocationImage.m */,
-				83FBD5B516F11EA800E9DEBB /* Supporting Files */,
 				839C68A916F2A89D00FEE60F /* BIGImageViewController.h */,
 				839C68AA16F2A89D00FEE60F /* BIGImageViewController.m */,
 				832C0B5A16F2AAE100ABAD02 /* Cell.h */,
@@ -152,6 +151,7 @@
 				832C0B5D16F2AAE100ABAD02 /* CustomCellBackground.m */,
 				832C0B5E16F2AAE100ABAD02 /* DetailViewController.h */,
 				832C0B5F16F2AAE100ABAD02 /* DetailViewController.m */,
+				83FBD5B516F11EA800E9DEBB /* Supporting Files */,
 			);
 			path = InstantGramification;
 			sourceTree = "<group>";

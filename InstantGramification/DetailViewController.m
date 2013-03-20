@@ -47,6 +47,7 @@
  */
 
 #import "DetailViewController.h"
+#import <ASIHTTPRequest.h>
 
 @interface DetailViewController ()
 @property (nonatomic, assign) IBOutlet UIImageView *imageView;
@@ -55,16 +56,58 @@
 @implementation DetailViewController
 
 - (void)dealloc {
-    
-//    [self.image release], self.image = nil;
-    
+    [self.loadingMask release], self.loadingMask = nil;
     [super dealloc];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    self.imageView.image = self.image;
+//    NSLog(@"show the loading mask");
+//    self.loadingMask = [[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+//    self.loadingMask.backgroundColor = [UIColor blackColor];
+//    self.loadingMask.alpha = 0.5;
+//    UILabel *loadingMaskLbl = [[[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)] autorelease];
+//    loadingMaskLbl.alpha = 1.0;
+//    [self.loadingMask addSubview:loadingMaskLbl];
+//    loadingMaskLbl.text =@"loading";
+//    loadingMaskLbl.textColor = [UIColor whiteColor];
+//    loadingMaskLbl.backgroundColor = [UIColor blackColor];
+//    [loadingMaskLbl setCenter:self.loadingMask.center];
+//    loadingMaskLbl.textAlignment = UITextAlignmentCenter;
+//    
+//    [self.view addSubview:self.loadingMask];
+
+
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.imageView.image = self.detailImage;
+//    dispatch_queue_t imageQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+//    dispatch_async(imageQueue, ^{
+//        NSURL *url = [NSURL URLWithString:self.imageURL];
+//        ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:url] autorelease];
+//        NSError *error = [request error];
+//        [request startSynchronous];
+//        
+//        if (!error) {
+//            NSMutableData *response = [request rawResponseData];
+//            self.imageView.image = [UIImage imageWithData:response];
+//            
+//            [UIView animateWithDuration:0.3
+//                             animations:^(void){
+//                                 self.loadingMask.alpha = 0.0;
+//                             }
+//                             completion:^(BOOL finished){
+//                                 NSLog(@"Loading mask finished");
+//                                 [self.loadingMask retain];
+//                                 [self.loadingMask removeFromSuperview];
+//                             }
+//             ];
+//        }
+//    });
 }
 
 @end

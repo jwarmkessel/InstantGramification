@@ -108,6 +108,9 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
                 NSMutableData *response = [request rawResponseData];
                 cell.image.image = [UIImage imageWithData:response];
                 
+                //preload detail image
+                [locationImage getDetailImage];
+                
                 // First figure out how many sections there are
                 NSInteger lastSectionIndex = [self.collectionView numberOfSections] - 1;
                 
@@ -144,24 +147,15 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 //
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    //Since the images will already be loaded there isn't a need to have loading mask.
+    [self setDisplayLoadingMask:0];
+    
     if ([[segue identifier] isEqualToString:@"displayDetailedImage"])
     {
-        [self setDisplayLoadingMask:0];
         NSIndexPath *selectedIndexPath = [[self.collectionView indexPathsForSelectedItems] objectAtIndex:0];
-
         BIGLocationImage *location = (BIGLocationImage *)[self.imageCollection objectAtIndex:selectedIndexPath.row];
-
         DetailViewController *detailViewController = [segue destinationViewController];
-        
-        NSURL *url = [NSURL URLWithString:location.detailImageURL];
-        ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:url] autorelease];
-        NSError *error = [request error];
-        [request startSynchronous];
-        
-        if (!error) {
-            NSMutableData *response = [request rawResponseData];
-            detailViewController.image = [UIImage imageWithData:response];
-        }
+        detailViewController.detailImage = location.detailImage;
     }
 }
 

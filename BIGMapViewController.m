@@ -31,6 +31,7 @@
     [self.originalCoordinate release], self.originalCoordinate = nil;
     [self.mapView release], self.mapView = nil;
     [self.locationDataController release], self.locationDataController = nil;
+    [self.locationManagerTimer release], self.locationManagerTimer = nil;
     
     [super dealloc];
 }
@@ -86,9 +87,9 @@
     [self.locationManager startUpdatingLocation];
     
     [self startTask];
-
 }
 
+//Start updating the GPS
 - (void) startTask {
     self.locationManagerTimer = [NSTimer scheduledTimerWithTimeInterval:UPDATE_GPS
                                      target:self
@@ -181,53 +182,6 @@
     return pinView;
 }
 
-//- (MKAnnotationView *)mapView:(MKMapView *)theMapView viewForAnnotation:(id <MKAnnotation>)annotation
-//{
-//    if ([annotation isKindOfClass:[MKUserLocation class]])
-//        return nil;
-//    static NSString* AnnotationIdentifier = @"AnnotationIdentifier";
-//    MKAnnotationView *annotationView = [mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationIdentifier];
-//    if(annotationView)
-//        return annotationView;
-//    else
-//    {
-//        MKAnnotationView *annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:AnnotationIdentifier];
-//        annotationView.canShowCallout = YES;
-//        
-//        //change here
-//        annotationView.image = [UIImage imageNamed:[NSString stringWithFormat:@"F.png"]];
-//        
-//        UIImage *frame = [UIImage imageNamed:[NSString stringWithFormat:@"F.png"];
-//                      UIImage *image = theImageInFrameInner;
-//                      
-//                      UIGraphicsBeginImageContext(CGSizeMake(pin.size.width, pin.size.height));
-//                      
-//                      [frame drawInRect:CGRectMake(0, 0, frame.size.width, frame.size.height)];
-//                      [image drawInRect:CGRectMake(2, 2, 60, 60)]; // the frame your inner image
-//                      //maybe you should draw the left bottom icon here,
-//                      
-//                      
-//                      //then set back the new image, done
-//                      annotationView.image = UIGraphicsGetImageFromCurrentImageContext();
-//                      
-//                      UIGraphicsEndImageContext();
-//                      
-//                      
-//                      
-//                      
-//                      
-//                      UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-//                      [rightButton addTarget:self action:@selector(writeSomething:) forControlEvents:UIControlEventTouchUpInside];
-//                      [rightButton setTitle:annotation.title forState:UIControlStateNormal];
-//                      
-//                      annotationView.rightCalloutAccessoryView = rightButton;
-//                      annotationView.canShowCallout = YES;
-//                      annotationView.draggable = NO;
-//                      return annotationView;
-//    }
-//    return nil;
-//}
-
 #pragma mark -MKMapViewDelegate
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
@@ -252,9 +206,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     NSLog(@"didFailWithError: %@", error);
-    UIAlertView *errorAlert = [[UIAlertView alloc]
-                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-    [errorAlert show];
+    //TODO Need indicator of GPS health
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
