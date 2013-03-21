@@ -12,6 +12,7 @@
 #import "BIGLocation.h"
 #import "BIGImageViewController.h"
 #import "BIGMapMediaReferenceloader.h"
+#import "BIGCustomAnnotationView.h"
 
 #define M_PI   3.14159265358979323846264338327950288   /* pi */
 #define METERS_PER_MILE 1609.344
@@ -136,27 +137,8 @@
 }
 #pragma mark - mapkit delegate
 
-- (void)mapView:(MKMapView *)mapView regionWillChangeAnimated:(BOOL)animated {
-    
-}
-- (void)mapView:(MKMapView *)mapView regionDidChangeAnimated:(BOOL)animated {
-    
-}
-
-- (void)mapViewWillStartLoadingMap:(MKMapView *)mapView {
-    
-}
-
-- (void)mapViewDidFinishLoadingMap:(MKMapView *)mapView {
-    
-}
-
 - (void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error {
-    
-}
-
-- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
-    NSLog(@"didAddAnnotationViews");
+    NSLog(@"mapViewDidFailLoadingMap %@", error);
 }
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
@@ -164,33 +146,72 @@
         self.view.userInteractionEnabled = NO;
         BIGLocation *tempLocation = (BIGLocation *)view.annotation;
         _currentSelectedLocation = tempLocation;
-        
+
         [self performSegueWithIdentifier:@"displayImageCollection" sender:self];
     }
 }
 
 - (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
-    NSLog(@"didDeselectAnnotationView");    
+    NSLog(@"didDeselectAnnotationView");
 }
 
 // mapView:annotationView:calloutAccessoryControlTapped: is called when the user taps on left & right callout accessory UIControls.
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-    
+
+    NSLog(@"calloutAccessoryControlTapped");
+
+}
+
+- (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
+    BIGCustomAnnotationView *aV;
+
+    for (aV in views) {
+        
+        CGRect endFrame = aV.frame;
+        
+        aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y - 230.0, aV.frame.size.width, aV.frame.size.height);
+        aV.backgroundColor = [UIColor greenColor];
+        
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.45];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        [aV setFrame:endFrame];
+        [UIView commitAnimations];
+    }
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
-    MKPinAnnotationView *pinView = nil;
+    BIGCustomAnnotationView *pinView = nil;
+    
     
     if(annotation != mapView.userLocation)
-    {    
-        static NSString *defaultPinID = @"com.invasivecode.pin";
-        pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
-        if ( pinView == nil ) pinView = [[[MKPinAnnotationView alloc]
-                                          initWithAnnotation:annotation reuseIdentifier:defaultPinID] autorelease];
+    {
+        NSLog(@"VIEWFORANNOTATION");
+        BIGLocation *location = (BIGLocation *)annotation;
         
-        pinView.pinColor = MKPinAnnotationColorPurple;
+        static NSString *defaultPinID = @"com.invasivecode.pin";
+        pinView = (BIGCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
+        if ( pinView == nil ) pinView = [[[BIGCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:defaultPinID] autorelease];
+        
+
+        UILabel *label = (UILabel *)[pinView viewWithTag:1];
+        pinView.label.textColor = [UIColor whiteColor];
+        pinView.label.text = location.latitude;
+
+
+//
+//        static NSString *defaultPinID = @"com.invasivecode.pin";
+//        pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
+//        if ( pinView == nil ) pinView = [[[MKPinAnnotationView alloc]
+//                                          initWithAnnotation:annotation reuseIdentifier:defaultPinID] autorelease];
+
+//        pinView.image.layer.frame = CGRectMake(pinView.frame.origin.x, pinView.frame.origin.y, 44.0f, 44.0f);
+//        UILabel *numOfImages = [[[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f)] autorelease];
+//        numOfImages.text =  [NSString stringWithFormat:@"%d", [location.imageCollection count]];
+//        numOfImages.textAlignment = UITextAlignmentCenter;
+
         pinView.canShowCallout = YES;
-        pinView.animatesDrop = YES;
+        
     }
     else {
         [mapView.userLocation setTitle:@"I am here"];
@@ -201,9 +222,7 @@
 #pragma mark -MKMapViewDelegate
 
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
-{
-    NSLog(@"MV didUpdateUserLocation");
-    
+{    
     MKCoordinateRegion rgn = MKCoordinateRegionMakeWithDistance(CLLocationCoordinate2DMake(userLocation.coordinate.latitude, userLocation.coordinate.longitude), 100, 100);
     
     [self.mapView setRegion:rgn animated:NO];
@@ -211,26 +230,9 @@
 
 #pragma mark -CLLocationManagerDelegate
 
-- (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region {
-    NSLog(@"didEnterRegion");
-}
-
-- (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
-{
-    NSLog(@"didExitRegion");
-}
-
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
     NSLog(@"didFailWithError: %@", error);
     //TODO Need indicator of GPS health
-}
-
-- (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region {
-    
-}
-
-- (void)locationManager:(CLLocationManager *)manager didUpdateHeading:(CLHeading *)newHeading {
-    
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
@@ -280,9 +282,8 @@
         [params setObject:searchDistance forKey:@"distance"]; //Instagram search distance in meters.
         
         if ([appDelegate.instagram isSessionValid]) {
-            NSLog(@"Session appears to be valid so make a request");
             [appDelegate.instagram requestWithMethodName:@"locations/search" params:params httpMethod:@"get" delegate:self];
-            
+    
             self.originalCoordinate = manager.location;
         }
     }
@@ -334,7 +335,7 @@
         CLLocation *nearbyLocation = [[CLLocation alloc]initWithLatitude:[[data objectForKey:@"latitude"] doubleValue] longitude:[[data objectForKey:@"longitude"] doubleValue]];
 
         CGFloat distanceFromUser = [self.locationManager.location distanceFromLocation:nearbyLocation];
-        NSLog(@"Distance %f", distanceFromUser);
+
         //Add to the list of friends
         [self.locationDataController addLocationWithName:[data objectForKey:@"name"] latitude:[data objectForKey:@"latitude"] longitude:[data objectForKey:@"longitude"] identityNumber:[data objectForKey:@"id"] distanceFromUserInMeters:distanceFromUser];
     }

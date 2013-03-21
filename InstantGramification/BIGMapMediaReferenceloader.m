@@ -15,7 +15,6 @@
     self = [super init];
     if(self) {
         self.locationList = nearbyLocations;
-        
     }
     return self;
 }
@@ -41,8 +40,8 @@
     //Get the media reference for a location
     [self.batchlist addObject:controller];
     //Load them up in an array and pass to map view to be injected as an annotation
-
-    [[self delegate] didCompleteBatchDownload:controller];
+    if(controller.imageCollection.count > 0)
+        [[self delegate] didCompleteBatchDownload:controller];
 }
 
 @end

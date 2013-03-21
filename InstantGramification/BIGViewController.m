@@ -9,6 +9,8 @@
 #import "BIGViewController.h"
 #import "BIGMapViewController.h"
 #import "BIGAppDelegate.h"
+#import "BIGDrawView.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface BIGViewController ()
 - (IBAction)handleInstagramConnect:(id)sender;
@@ -26,6 +28,63 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    CGRect rect = self.view.layer.frame;
+    
+    //Adding a radial gradient. Not sure how I like doing things this way.
+    BIGDrawView* drawableView = [[[BIGDrawView alloc] initWithFrame:CGRectMake(0,0,320,50)] autorelease];
+    drawableView.drawBlock = ^(UIView *view,CGContextRef context)
+    {
+
+        CGContextRef ctx = UIGraphicsGetCurrentContext();
+        
+        //Gradient related variables
+        CGGradientRef myGradient;
+        CGColorSpaceRef myColorSpace;
+        size_t locationCount = 2;
+        CGFloat locationList[2] = { 0.0, 0.9 };
+        CGFloat colorList[8] = {
+            1.0, 1.0, 1.0, 1.0,  // Start color
+            0.2, 0.32, 0.6, 1.0   // End color
+            
+        };
+        
+        myColorSpace = CGColorSpaceCreateDeviceRGB();
+        myGradient = CGGradientCreateWithColorComponents(myColorSpace, colorList, locationList, locationCount);
+    
+        float startPoint = 0.0f;
+        float endPoint = rect.size.width;
+        
+        CGPoint startRadius, endRadius;
+        
+        //Radia Gradient Rendering
+        startRadius.x = rect.size.width/2;
+        startRadius.y = rect.size.height/2;
+        endRadius.x = rect.size.width/2;
+        endRadius.y = rect.size.height/2;
+        
+        CGContextDrawRadialGradient(ctx, myGradient, startRadius, startPoint, endRadius, endPoint, 0);
+        CGGradientRelease(myGradient);
+
+    };
+
+
+    UILabel *appTitle = (UILabel *)[self.view viewWithTag:1];
+    UIButton *button = (UIButton *)[self.view viewWithTag:2];
+    self.view = drawableView;
+    
+    [self.view.layer setMasksToBounds:YES];
+    [self.view.layer setCornerRadius:5.0f];
+    [self.view.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    [self.view.layer setBorderWidth:1.5f];
+    [self.view.layer setShadowOffset:CGSizeMake(2.0, 2.0)];
+    [self.view.layer setShadowColor:[UIColor greenColor].CGColor];
+    [self.view.layer setShadowOpacity:0.0];
+    [self.view.layer setShadowRadius:3.0];
+    
+    [self.view addSubview:appTitle];
+    [self.view addSubview:button];
+    
     
 	// Do any additional setup after loading the view, typically from a nib.
     NSLog(@"View Controller did load");

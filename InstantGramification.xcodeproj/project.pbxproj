@@ -20,6 +20,8 @@
 		83CDDAB716F13A52001730B4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83CDDAB616F13A52001730B4 /* MapKit.framework */; };
 		83CDDABA16F13EE3001730B4 /* BIGMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 83CDDAB916F13EE3001730B4 /* BIGMapViewController.m */; };
 		83E1DE2F16FA59F600C9D750 /* BIGMapMediaReferenceloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E1DE2E16FA59F600C9D750 /* BIGMapMediaReferenceloader.m */; };
+		83E1DE3216FBA38200C9D750 /* BIGCustomAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E1DE3116FBA38200C9D750 /* BIGCustomAnnotationView.m */; };
+		83E1DE3516FBA84200C9D750 /* BIGDrawView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83E1DE3416FBA84200C9D750 /* BIGDrawView.m */; };
 		83FBD5AF16F11EA800E9DEBB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FBD5AE16F11EA800E9DEBB /* UIKit.framework */; };
 		83FBD5B116F11EA800E9DEBB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FBD5B016F11EA800E9DEBB /* Foundation.framework */; };
 		83FBD5B316F11EA800E9DEBB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83FBD5B216F11EA800E9DEBB /* CoreGraphics.framework */; };
@@ -58,6 +60,10 @@
 		83CDDAB916F13EE3001730B4 /* BIGMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BIGMapViewController.m; path = ../BIGMapViewController.m; sourceTree = "<group>"; };
 		83E1DE2D16FA59F600C9D750 /* BIGMapMediaReferenceloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIGMapMediaReferenceloader.h; sourceTree = "<group>"; };
 		83E1DE2E16FA59F600C9D750 /* BIGMapMediaReferenceloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIGMapMediaReferenceloader.m; sourceTree = "<group>"; };
+		83E1DE3016FBA38200C9D750 /* BIGCustomAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIGCustomAnnotationView.h; sourceTree = "<group>"; };
+		83E1DE3116FBA38200C9D750 /* BIGCustomAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIGCustomAnnotationView.m; sourceTree = "<group>"; };
+		83E1DE3316FBA84200C9D750 /* BIGDrawView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BIGDrawView.h; sourceTree = "<group>"; };
+		83E1DE3416FBA84200C9D750 /* BIGDrawView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BIGDrawView.m; sourceTree = "<group>"; };
 		83FBD5AB16F11EA800E9DEBB /* InstantGramification.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstantGramification.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83FBD5AE16F11EA800E9DEBB /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		83FBD5B016F11EA800E9DEBB /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -99,6 +105,8 @@
 		83FBD5A216F11EA800E9DEBB = {
 			isa = PBXGroup;
 			children = (
+				83E1DE3316FBA84200C9D750 /* BIGDrawView.h */,
+				83E1DE3416FBA84200C9D750 /* BIGDrawView.m */,
 				83FBD5B416F11EA800E9DEBB /* InstantGramification */,
 				83FBD5AD16F11EA800E9DEBB /* Frameworks */,
 				83FBD5AC16F11EA800E9DEBB /* Products */,
@@ -142,6 +150,8 @@
 				83CDDAB916F13EE3001730B4 /* BIGMapViewController.m */,
 				83E1DE2D16FA59F600C9D750 /* BIGMapMediaReferenceloader.h */,
 				83E1DE2E16FA59F600C9D750 /* BIGMapMediaReferenceloader.m */,
+				83E1DE3016FBA38200C9D750 /* BIGCustomAnnotationView.h */,
+				83E1DE3116FBA38200C9D750 /* BIGCustomAnnotationView.m */,
 				835FDCD716F27BD700FA3EC5 /* BIGLocationDataController.h */,
 				835FDCD816F27BD700FA3EC5 /* BIGLocationDataController.m */,
 				835FDCDA16F27C1300FA3EC5 /* BIGLocation.h */,
@@ -273,6 +283,8 @@
 				832C0B6216F2AAE100ABAD02 /* DetailViewController.m in Sources */,
 				832C0B6516F3EC0E00ABAD02 /* BIGLocationImage.m in Sources */,
 				83E1DE2F16FA59F600C9D750 /* BIGMapMediaReferenceloader.m in Sources */,
+				83E1DE3216FBA38200C9D750 /* BIGCustomAnnotationView.m in Sources */,
+				83E1DE3516FBA84200C9D750 /* BIGDrawView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
