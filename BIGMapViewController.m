@@ -143,11 +143,9 @@
 
 - (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view {
     if(view.annotation != mapView.userLocation) {
-        self.view.userInteractionEnabled = NO;
+
         BIGLocation *tempLocation = (BIGLocation *)view.annotation;
         _currentSelectedLocation = tempLocation;
-
-        [self performSegueWithIdentifier:@"displayImageCollection" sender:self];
     }
 }
 
@@ -157,9 +155,9 @@
 
 // mapView:annotationView:calloutAccessoryControlTapped: is called when the user taps on left & right callout accessory UIControls.
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
-
     NSLog(@"calloutAccessoryControlTapped");
-
+    self.view.userInteractionEnabled = NO;
+    [self performSegueWithIdentifier:@"displayImageCollection" sender:self];
 }
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
@@ -170,7 +168,6 @@
         CGRect endFrame = aV.frame;
         
         aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y - 230.0, aV.frame.size.width, aV.frame.size.height);
-        aV.backgroundColor = [UIColor greenColor];
         
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.45];
@@ -182,36 +179,14 @@
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
     BIGCustomAnnotationView *pinView = nil;
-    
-    
+
     if(annotation != mapView.userLocation)
     {
-        NSLog(@"VIEWFORANNOTATION");
-        BIGLocation *location = (BIGLocation *)annotation;
-        
         static NSString *defaultPinID = @"com.invasivecode.pin";
         pinView = (BIGCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
-        if ( pinView == nil ) pinView = [[[BIGCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:defaultPinID] autorelease];
-        
-
-        UILabel *label = (UILabel *)[pinView viewWithTag:1];
-        pinView.label.textColor = [UIColor whiteColor];
-        pinView.label.text = location.latitude;
-
-
-//
-//        static NSString *defaultPinID = @"com.invasivecode.pin";
-//        pinView = (MKPinAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
-//        if ( pinView == nil ) pinView = [[[MKPinAnnotationView alloc]
-//                                          initWithAnnotation:annotation reuseIdentifier:defaultPinID] autorelease];
-
-//        pinView.image.layer.frame = CGRectMake(pinView.frame.origin.x, pinView.frame.origin.y, 44.0f, 44.0f);
-//        UILabel *numOfImages = [[[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f)] autorelease];
-//        numOfImages.text =  [NSString stringWithFormat:@"%d", [location.imageCollection count]];
-//        numOfImages.textAlignment = UITextAlignmentCenter;
-
-        pinView.canShowCallout = YES;
-        
+        pinView = [[[BIGCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:defaultPinID] autorelease];
+//        UIButton *annotationBtn = [[[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f)] autorelease];
+        pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     }
     else {
         [mapView.userLocation setTitle:@"I am here"];
@@ -251,7 +226,6 @@
         else if (manager.location.horizontalAccuracy > 48)
         {
             NSLog(@"Average signal");
-            NSLog(@"Strong signal");
             //If original location was set then set the distance traveled.
             if(self.originalCoordinate != nil) {
                 _traveledDistance = [self.originalCoordinate distanceFromLocation:manager.location];
@@ -267,7 +241,6 @@
         }
     }
     
-    NSLog(@"The initial traveled distance %f", _traveledDistance);
     //This is true if gps is accurate and the traveled distance from the original location is greater than the distance required.
     if(_traveledDistance >= SEARCH_DIST) {
         BIGAppDelegate* appDelegate = (BIGAppDelegate*)[UIApplication sharedApplication].delegate;
