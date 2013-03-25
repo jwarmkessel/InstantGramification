@@ -35,7 +35,7 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
     if(!self.imageCollection) {
         self.imageCollection = [[NSMutableArray alloc] initWithArray:self.locationObj.imageCollection];
     }
-
+    
     if([self.imageCollection count] == 0) {
         UILabel *noImageLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 44.0f, 320.0f, 44.0f)] autorelease];
         [self.view addSubview:noImageLabel];
@@ -90,7 +90,7 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 
     //Using SDWebImage to load view asynchronously.
     [cell.image setImageWithURL:[NSURL URLWithString:locationImage.url]
-                   placeholderImage:nil
+               placeholderImage:nil
                       completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType) {  
                           if(!error) {
                               
@@ -136,9 +136,6 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 }
 
 - (void)setImageCollectionObj:(BIGLocation *)locationObj {
-    BIGLocationImage *locationImageObj = (BIGLocationImage *)[locationObj.imageCollection objectAtIndex:0];
-    NSLog(@"success! setimagecollectionobj called %@", locationImageObj.url);
-    
     [self.imageCollection initWithArray:locationObj.imageCollection];
 }
 

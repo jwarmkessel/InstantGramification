@@ -109,6 +109,19 @@
         loadingMaskLbl.backgroundColor = [UIColor blackColor];
         [loadingMaskLbl setCenter:self.loadingMask.center];
         loadingMaskLbl.textAlignment = UITextAlignmentCenter;
+    } else {
+        NSLog(@"Returning 3D view");
+        [UIView animateWithDuration:0.2
+                         animations:^ {
+                             CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
+                             rotationAndPerspectiveTransform.m34 = 1.0 / -500;
+                             rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, M_PI / 180.0f, 0.0f, 1.0f, 0.0f);
+                             self.view.layer.transform = rotationAndPerspectiveTransform;
+                         }
+                         completion:^(BOOL finished) {
+                             
+                         }
+         ];   
     }
 }
 //Start updating the GPS
@@ -127,7 +140,6 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    // Make sure your segue name in storyboard is the same as this line
     if ([[segue identifier] isEqualToString:@"displayImageCollection"])
     {
         self.imageCollectionViewController = (BIGImageViewController *)[segue destinationViewController];
@@ -157,7 +169,19 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control {
     NSLog(@"calloutAccessoryControlTapped");
     self.view.userInteractionEnabled = NO;
-    [self performSegueWithIdentifier:@"displayImageCollection" sender:self];
+    
+    [UIView animateWithDuration:0.2
+                     animations:^ {
+                         CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
+                         rotationAndPerspectiveTransform.m34 = 1.0 / -500;
+                         rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, 45.0f * M_PI / 180.0f, 0.0f, 1.0f, 0.0f);
+                         self.view.layer.transform = rotationAndPerspectiveTransform;
+                         [self performSegueWithIdentifier:@"displayImageCollection" sender:self];
+                     }
+                     completion:^(BOOL finished) {
+                         
+                     }
+     ];
 }
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {

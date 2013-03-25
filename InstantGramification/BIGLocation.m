@@ -108,7 +108,6 @@
         BIGLocationImage *locationImageObj = [[[BIGLocationImage alloc] initLocationWithUrlString:url height:height width:width] autorelease];
 
         [self.imageCollection addObject:locationImageObj];
-        
         count++;
         
         //We're done when we get all the images we want.
@@ -116,7 +115,7 @@
     }
 
     //Announce that response is done
-    NSLog(@"location Images did finish5");
+    NSLog(@"location Images did finish");
     [[self delegate] locationImagesDidFinish:self];
 }
 

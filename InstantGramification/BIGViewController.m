@@ -35,7 +35,6 @@
     BIGDrawView* drawableView = [[[BIGDrawView alloc] initWithFrame:CGRectMake(0,0,320,50)] autorelease];
     drawableView.drawBlock = ^(UIView *view,CGContextRef context)
     {
-
         CGContextRef ctx = UIGraphicsGetCurrentContext();
         
         //Gradient related variables

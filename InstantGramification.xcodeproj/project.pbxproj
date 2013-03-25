@@ -102,11 +102,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		83FBD5A216F11EA800E9DEBB = {
+		83E1DE3616FBCECD00C9D750 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				83E1DE3716FBCED700C9D750 /* DrawView */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		83E1DE3716FBCED700C9D750 /* DrawView */ = {
 			isa = PBXGroup;
 			children = (
 				83E1DE3316FBA84200C9D750 /* BIGDrawView.h */,
 				83E1DE3416FBA84200C9D750 /* BIGDrawView.m */,
+			);
+			name = DrawView;
+			sourceTree = "<group>";
+		};
+		83FBD5A216F11EA800E9DEBB = {
+			isa = PBXGroup;
+			children = (
+				83E1DE3616FBCECD00C9D750 /* Resources */,
 				83FBD5B416F11EA800E9DEBB /* InstantGramification */,
 				83FBD5AD16F11EA800E9DEBB /* Frameworks */,
 				83FBD5AC16F11EA800E9DEBB /* Products */,
