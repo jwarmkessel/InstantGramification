@@ -1,19 +1,4 @@
 
-COCOAPODS: 0.16.4
-
-SPEC CHECKSUMS: 
-  ASIHTTPRequest/ASIWebPageRequest: e606d2df58b0aace6c1cf1d39a08d3484f91324a
-  PSTCollectionView: 5461a4fbe17eb1e2d2fa7388105e708deb6dd1e7
-  instagram-ios-sdk: b337c659943d061bb51cedfa280ff95f68dbe08c
-  ASIHTTPRequest: e606d2df58b0aace6c1cf1d39a08d3484f91324a
-  ASIHTTPRequest/CloudFiles: e606d2df58b0aace6c1cf1d39a08d3484f91324a
-  SDWebImage: 8082fe8d658ccafaaecd9e5ecda12ed01f09ba9c
-  SBJson: cc373c9eed9314a45715e4fb77a1415c45fa056e
-  Reachability: 1c8584c5f26fa776695efef95caaa50402c94cfb
-  SDWebImage/MapKit: 8082fe8d658ccafaaecd9e5ecda12ed01f09ba9c
-  ASIHTTPRequest/S3: e606d2df58b0aace6c1cf1d39a08d3484f91324a
-  TestFlightSDK: aeec97fd81096753d53b942f030a443520a087f4
-
 PODS: 
 - ASIHTTPRequest (1.8.1): 
   - ASIHTTPRequest/ASIWebPageRequest (= 1.8.1)
@@ -26,6 +11,7 @@ PODS:
   - Reachability
 - ASIHTTPRequest/S3 (1.8.1): 
   - Reachability
+- Google-Maps-iOS-SDK (1.1.1)
 - PSTCollectionView (0.0.1)
 - Reachability (3.1.0)
 - SBJson (2.2.3)
@@ -38,7 +24,24 @@ PODS:
 
 DEPENDENCIES: 
 - ASIHTTPRequest (~> 1.8.1)
+- Google-Maps-iOS-SDK (~> 1.1.1)
 - PSTCollectionView (~> 0.0.1)
 - SDWebImage (~> 3.2)
 - TestFlightSDK (~> 1.2.4.beta)
 - instagram-ios-sdk (~> 0.0.1)
+
+COCOAPODS: 0.16.4
+
+SPEC CHECKSUMS: 
+  Reachability: ba94ecd4eaa037be3d0588b38956672588530c5b
+  ASIHTTPRequest: a79e32b54f92471bff8979f3b82182f0e9b6992c
+  PSTCollectionView: 5461a4fbe17eb1e2d2fa7388105e708deb6dd1e7
+  Google-Maps-iOS-SDK: a1eed6c7ba2b5128d444bbd10bc5cdfad2af07f4
+  ASIHTTPRequest/ASIWebPageRequest: a79e32b54f92471bff8979f3b82182f0e9b6992c
+  instagram-ios-sdk: b337c659943d061bb51cedfa280ff95f68dbe08c
+  SDWebImage: 8082fe8d658ccafaaecd9e5ecda12ed01f09ba9c
+  ASIHTTPRequest/S3: a79e32b54f92471bff8979f3b82182f0e9b6992c
+  SDWebImage/MapKit: 8082fe8d658ccafaaecd9e5ecda12ed01f09ba9c
+  TestFlightSDK: aeec97fd81096753d53b942f030a443520a087f4
+  ASIHTTPRequest/CloudFiles: a79e32b54f92471bff8979f3b82182f0e9b6992c
+  SBJson: cc373c9eed9314a45715e4fb77a1415c45fa056e

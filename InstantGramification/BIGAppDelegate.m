@@ -7,8 +7,11 @@
 //
 
 #import "BIGAppDelegate.h"
+#import <GoogleMaps/GoogleMaps.h>
 
 #define APP_ID @"9ad8f1c815c449608c430b892dca3eb9"
+#define GOOGLE_API_ACESS @"AIzaSyDCCbgIbdgtniEDORfBguz8t6qHl7pRJ9c"
+#define TESTFLIGHT_TOKEN @"f15f4800-3595-4280-a98d-39bf3f89fae2"
 
 @implementation BIGAppDelegate
 
@@ -28,9 +31,12 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [TestFlight takeOff:@"f15f4800-3595-4280-a98d-39bf3f89fae2"];
+    [TestFlight takeOff:TESTFLIGHT_TOKEN];
     self.instagram = [[Instagram alloc] initWithClientId:APP_ID
                                                 delegate:nil];
+    
+    [GMSServices provideAPIKey:GOOGLE_API_ACESS];
+    
     return YES;
 }
 							

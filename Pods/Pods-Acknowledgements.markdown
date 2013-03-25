@@ -32,6 +32,10 @@ A different license may apply to other software included in this package,
 including GHUnit and Andrew Donoho's Reachability class. Please consult their 
 respective headers for the terms of their individual licenses.
 
+## Google-Maps-iOS-SDK
+
+Copyright 2012 Google Inc.
+
 ## PSTCollectionView
 
 Copyright (c) 2012-2013 Peter Steinberger <steipete@gmail.com>
