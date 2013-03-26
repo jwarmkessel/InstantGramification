@@ -26,3 +26,4 @@ install_resource()
   esac
 }
 install_resource 'Google-Maps-iOS-SDK/GoogleMaps.framework/Resources/GoogleMaps.bundle'
+install_resource 'Resources/MapBox.bundle'

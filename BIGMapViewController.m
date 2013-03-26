@@ -71,6 +71,8 @@
     
     //Disable the back button because we've already been granted an access token from Insatgram
     self.navigationItem.hidesBackButton = YES;
+    self.tabBarController.navigationItem.hidesBackButton = YES;
+    self.tabBarController.delegate = self;
     
     //Set initial distance flag as true
     _traveledDistance = SEARCH_DIST;
@@ -373,6 +375,48 @@
 
 - (void)didCompleteDownload {
     
+}
+
+#pragma mark - UITabBarControllerDelegate
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
+    NSLog(@"Did switch maps");
+    
+
+//    [UIView animateWithDuration:0.2
+//                     animations:^ {
+//                         CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
+//                         rotationAndPerspectiveTransform.m34 = 1.0 / -500;
+//                         rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, 45.0 *M_PI / 180.0f, 0.0f, 1.0f, 0.0f);
+//                         self.view.layer.transform = rotationAndPerspectiveTransform;
+//                     }
+//                     completion:^(BOOL finished) {
+//                         
+//                     }
+//     ];    
+}
+
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    
+    NSArray *tabViewControllers = tabBarController.viewControllers;
+    UIView * fromView = tabBarController.selectedViewController.view;
+    UIView * toView = viewController.view;
+    if (fromView == toView)
+        return NO;
+    NSUInteger fromIndex = [tabViewControllers indexOfObject:tabBarController.selectedViewController];
+    NSUInteger toIndex = [tabViewControllers indexOfObject:viewController];
+    
+    
+    [UIView transitionFromView:fromView
+                        toView:toView
+                      duration:0.3
+                       options: toIndex > fromIndex ? UIViewAnimationOptionTransitionFlipFromLeft : UIViewAnimationOptionTransitionFlipFromRight
+                    completion:^(BOOL finished) {
+                        if (finished) {
+                            tabBarController.selectedIndex = toIndex;
+                        }
+                    }];
+    return true;
 }
 
 @end

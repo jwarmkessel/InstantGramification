@@ -14,7 +14,7 @@
 @class BIGImageViewController;
 @class BIGLocationDataController;
 
-@interface BIGMapViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate, IGRequestDelegate, BIGMapMediaRefrenceLoaderDelegate> {
+@interface BIGMapViewController : UIViewController <CLLocationManagerDelegate, MKMapViewDelegate, IGRequestDelegate, BIGMapMediaRefrenceLoaderDelegate, UITabBarControllerDelegate> {
     float _traveledDistance;
     BIGLocation *_currentSelectedLocation;
 }

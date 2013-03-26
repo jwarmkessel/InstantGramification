@@ -202,6 +202,8 @@
 		83FBD5B416F11EA800E9DEBB /* InstantGramification */ = {
 			isa = PBXGroup;
 			children = (
+				83E1DE4E1701014500C9D750 /* BIGGoogleMapsViewController.h */,
+				83E1DE4F1701014500C9D750 /* BIGGoogleMapsViewController.m */,
 				83FBD5BD16F11EA800E9DEBB /* BIGAppDelegate.h */,
 				83FBD5BE16F11EA800E9DEBB /* BIGAppDelegate.m */,
 				83FBD5C616F11EA900E9DEBB /* MainStoryboard.storyboard */,
@@ -230,8 +232,6 @@
 				832C0B5E16F2AAE100ABAD02 /* DetailViewController.h */,
 				832C0B5F16F2AAE100ABAD02 /* DetailViewController.m */,
 				83FBD5B516F11EA800E9DEBB /* Supporting Files */,
-				83E1DE4E1701014500C9D750 /* BIGGoogleMapsViewController.h */,
-				83E1DE4F1701014500C9D750 /* BIGGoogleMapsViewController.m */,
 			);
 			path = InstantGramification;
 			sourceTree = "<group>";
