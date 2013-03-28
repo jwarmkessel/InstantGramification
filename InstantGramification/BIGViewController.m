@@ -132,11 +132,11 @@
     } else {
         message = @"Access denied!";
     }
-    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:@"Error"
+    UIAlertView* alertView = [[[UIAlertView alloc] initWithTitle:@"Error"
                                                         message:message
                                                        delegate:nil
                                               cancelButtonTitle:@"Ok"
-                                              otherButtonTitles:nil];
+                                              otherButtonTitles:nil] autorelease];
     [alertView show];
 }
 

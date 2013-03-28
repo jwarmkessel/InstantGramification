@@ -123,7 +123,7 @@
                          completion:^(BOOL finished) {
                              
                          }
-         ];   
+         ];
     }
 }
 //Start updating the GPS
@@ -275,7 +275,7 @@
         NSString *lonString = [[[NSString alloc] initWithFormat:@"%g", manager.location.coordinate.longitude] autorelease];
         NSString *searchDistance = [[[NSString alloc] initWithFormat:@"%d", SEARCH_DIST] autorelease];
         
-        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+        NSMutableDictionary *params = [[[NSMutableDictionary alloc] init] autorelease];
         [params setObject:latString forKey:@"lat"];
         [params setObject:lonString forKey:@"lng"];
         [params setObject:searchDistance forKey:@"distance"]; //Instagram search distance in meters.
@@ -304,18 +304,6 @@
 
 #pragma mark - IGRequestDelegate
 
-- (void)requestLoading:(IGRequest *)request {
-    NSLog(@"requestLoading");
-}
-
-/**
- * Called when the server responds and begins to send back data.
- */
-- (void)request:(IGRequest *)request didReceiveResponse:(NSURLResponse *)response {
-    //TODO loading mask is loaded here.
-    NSLog(@"didReceiveResponse");
-}
-
 - (void)request:(IGRequest *)request didFailWithError:(NSError *)error {
     NSLog(@"didFailWithError %@", error);
 }
@@ -337,13 +325,15 @@
 
         //Add to the list of friends
         [self.locationDataController addLocationWithName:[data objectForKey:@"name"] latitude:[data objectForKey:@"latitude"] longitude:[data objectForKey:@"longitude"] identityNumber:[data objectForKey:@"id"] distanceFromUserInMeters:distanceFromUser];
+        
+        [nearbyLocation release];
     }
     
     //Prototyping*********************************************
     
     self.nearbyLocationPoints = [[NSMutableArray alloc] initWithArray:[self.locationDataController locationList]];
     
-    BIGMapMediaReferenceloader *mrloader = [[BIGMapMediaReferenceloader alloc]initWithArray:self.nearbyLocationPoints];
+    BIGMapMediaReferenceloader *mrloader = [[[BIGMapMediaReferenceloader alloc]initWithArray:self.nearbyLocationPoints] autorelease];
     [mrloader setDelegate:self];
     [mrloader startMediaReferenceRequest];
     

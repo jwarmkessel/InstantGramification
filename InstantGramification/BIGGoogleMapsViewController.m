@@ -54,7 +54,7 @@
     
     self.tabBarController.delegate = self;
     
-    GMSMarkerOptions *optionMarks = [[GMSMarkerOptions alloc] init];
+    GMSMarkerOptions *optionMarks = [[[GMSMarkerOptions alloc] init] autorelease];
     optionMarks.position = CLLocationCoordinate2DMake(-33.85, 151.20);
     optionMarks.title = @"Justin Warmkessel";
     optionMarks.snippet = @"this is your location";

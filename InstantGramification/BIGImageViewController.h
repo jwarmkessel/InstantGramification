@@ -11,7 +11,7 @@
 @class BIGLocationImage;
 @class BIGLocation;
 
-@interface BIGImageViewController : PSUICollectionViewController_ <PSTCollectionViewDelegate, PSTCollectionViewDataSource, PSTCollectionViewDelegateFlowLayout, PSUICollectionViewDelegateFlowLayout_>{
+@interface BIGImageViewController : PSUICollectionViewController_ {
     int showLoadingMask;
 }
 

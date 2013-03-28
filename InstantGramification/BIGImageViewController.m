@@ -19,7 +19,6 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 @implementation BIGImageViewController
 
 - (void)dealloc {
-    NSLog(@"dealloc getting called too soon?");
     [self.imageCollection release], self.imageCollection = nil;
     [self.locationObj release], self.locationObj = nil;
     [self.loadingMask release], self.loadingMask = nil;

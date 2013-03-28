@@ -10,6 +10,13 @@
 
 @implementation BIGMapMediaReferenceloader
 
+-(void) dealloc {
+ 
+    [self.batchlist release], self.batchlist = nil;
+    [self.locationList release], self.locationList = nil;
+    
+    [super dealloc];
+}
 -(id) initWithArray:(NSArray *)nearbyLocations {
 
     self = [super init];
