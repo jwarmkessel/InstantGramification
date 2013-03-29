@@ -63,7 +63,7 @@
 }
 
 -(void) getCollectionImages {
-    self.imageCollection = [[NSMutableArray alloc] init];
+    self.imageCollection = [[[NSMutableArray alloc] init] autorelease];
     
     //Request media info based on location id
     BIGAppDelegate* appDelegate = (BIGAppDelegate*)[UIApplication sharedApplication].delegate;
@@ -72,6 +72,7 @@
 
     NSMutableDictionary *params = [[[NSMutableDictionary alloc] init] autorelease];
     [appDelegate.instagram requestWithMethodName:requestMethodString params:params httpMethod:@"GET" delegate:self];// append to array, non-blocking
+
 }
 
 #pragma mark - IGRequestDelegate

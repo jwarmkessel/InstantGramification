@@ -80,11 +80,13 @@
     [super viewDidLoad];
     
     //Initalize data controller for locations
-    self.locationDataController = [[BIGLocationDataController alloc]init];
+    self.locationDataController = [[[BIGLocationDataController alloc]init] autorelease];
     
     //Disable the back button because we've already been granted an access token from Insatgram
     self.navigationItem.hidesBackButton = YES;
-    self.tabBarController.navigationItem.hidesBackButton = YES;
+
+        
+//    self.tabBarController.navigationItem.hidesBackButton = YES;
     self.tabBarController.delegate = self;
     
     //Set initial distance flag as true
