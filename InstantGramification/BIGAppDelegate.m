@@ -17,7 +17,7 @@
 
 - (void)dealloc
 {
-    [self.instagram release], self.instagram = nil;
+    [_instagram release], _instagram = nil;
     [_window release];
     [super dealloc];
 }

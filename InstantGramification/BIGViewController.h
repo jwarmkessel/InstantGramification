@@ -11,8 +11,7 @@
 @class BIGMapViewController;
 
 @interface BIGViewController : UIViewController <IGSessionDelegate>
-- (IBAction)handleInstagramConnect:(id)sender;
 
-@property(retain, nonatomic) BIGMapViewController *mapViewController;
+- (IBAction)handleInstagramConnect:(id)sender;
 
 @end

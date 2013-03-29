@@ -14,12 +14,14 @@
 @end
 
 @implementation BIGLocationDataController
-@synthesize locationList = _locationList;
 
 -(void) dealloc {
-    [self.locationList release], self.locationList = nil;
+    [_locationList release];
+    _locationList = nil;
+    
     [super dealloc];
 }
+
 
 - (id)init {
     if (self = [super init]) {
@@ -30,7 +32,9 @@
 }
 
 - (void)initializeDefaultDataList {
-    self.locationList= [[NSMutableArray alloc] init];
+    
+    
+    self.locationList= [[[NSMutableArray alloc] init] autorelease];
 }
 
 - (BIGLocation *)objectInListAtIndex:(NSUInteger)theIndex
@@ -38,11 +42,11 @@
     return [self.locationList objectAtIndex:theIndex];
 }
 
-- (void)setStayingFriendsList:(NSMutableArray *)newList {
-    if (self.locationList != newList) {
-        self.locationList = [newList mutableCopy];
-    }
-}
+//- (void)setStayingFriendsList:(NSMutableArray *)newList {
+//    if (self.locationList != newList) {
+//        self.locationList = [[newList mutableCopy] autorelease];
+//    }
+//}
 
 - (NSUInteger)countOfList
 {

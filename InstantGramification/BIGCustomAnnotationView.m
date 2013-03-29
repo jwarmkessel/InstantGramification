@@ -39,15 +39,15 @@
 
 - (void)drawRect:(CGRect)rect
 {
-    self.label = [[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f)];
 
-    self.label.textAlignment = UITextAlignmentCenter;
-    self.label.backgroundColor = [UIColor blueColor];
-    self.label.textColor = [UIColor whiteColor];
-    self.label.text = [NSString stringWithFormat:@"%d", self.location.imageCollection.count];
-    [self addSubview:self.label];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.backgroundColor = [UIColor blueColor];
+    label.textColor = [UIColor whiteColor];
+    label.text = [NSString stringWithFormat:@"%d", self.location.imageCollection.count];
+    [self addSubview:label];
     
-//    [self animateDrop];
+    [label release];
 }
 
 -(void)animateDrop {    
@@ -68,8 +68,7 @@
 }
 
 -(void)dealloc {
-    [self.label release], self.label = nil;
-    [self.location release], self.location = nil;
+    [_location release], _location = nil;
     
     [super dealloc];
 }

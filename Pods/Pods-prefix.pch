@@ -2,6 +2,8 @@
 #import <UIKit/UIKit.h>
 #endif
 
+#import <CoreGraphics/CoreGraphics.h>
+
 //
 // Prefix header for all source files of the 'MapView' target in the 'MapView' project
 //

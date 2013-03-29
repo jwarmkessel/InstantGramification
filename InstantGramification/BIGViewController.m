@@ -7,7 +7,7 @@
 //
 
 #import "BIGViewController.h"
-#import "BIGMapViewController.h"
+//#import "BIGMapViewController.h"
 #import "BIGAppDelegate.h"
 #import "BIGDrawView.h"
 #import <QuartzCore/QuartzCore.h>
@@ -20,8 +20,6 @@
 
 - (void)dealloc
 {
-    [self.mapViewController release], self.mapViewController = nil;
-    
     [super dealloc];
 }
 
@@ -64,6 +62,8 @@
         
         CGContextDrawRadialGradient(ctx, myGradient, startRadius, startPoint, endRadius, endPoint, 0);
         CGGradientRelease(myGradient);
+        CGColorSpaceRelease(myColorSpace);
+
 
     };
 

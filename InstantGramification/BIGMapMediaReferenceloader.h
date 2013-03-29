@@ -16,6 +16,7 @@
 @property(retain, nonatomic) NSMutableArray *batchlist;
 @property(retain, nonatomic) NSArray *locationList;
 @property(assign, nonatomic) id <BIGMapMediaRefrenceLoaderDelegate> delegate;
+@property(retain, nonatomic) BIGLocation *location;
 
 -(id) initWithArray:(NSArray *)nearbyLocations;
 -(void) startMediaReferenceRequest;

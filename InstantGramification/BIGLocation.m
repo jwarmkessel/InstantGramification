@@ -14,16 +14,16 @@
 #define THUMBNAIL_IMAGES_MAX 5
 
 @implementation BIGLocation
-@synthesize coordinate, title, subtitle, name = _name, latitude = _latitude, longitude = _longitude, identityNum = _identityNum, distanceFromUser = _distanceFromUser, imageCollection = _imageCollection;
+@synthesize title, subtitle;
 
 -(void)dealloc {
-    [self.name release], self.name = nil;
-    [self.latitude release], self.latitude = nil;
-    [self.longitude release], self.longitude= nil;
-    [self.identityNum release], self.identityNum = nil;
-    [self.subtitle release], self.subtitle = nil;
-    [self.title release], self.title = nil;
-    [self.imageCollection release], self.imageCollection = nil;
+    [_name release], self.name = nil;
+    [_latitude release], self.latitude = nil;
+    [_longitude release], self.longitude= nil;
+    [_identityNum release], self.identityNum = nil;
+    [subtitle release], self.subtitle = nil;
+    [title release], self.title = nil;
+    [_imageCollection release], self.imageCollection = nil;
 
     [super dealloc];
 }

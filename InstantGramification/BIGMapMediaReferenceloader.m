@@ -11,9 +11,9 @@
 @implementation BIGMapMediaReferenceloader
 
 -(void) dealloc {
- 
-    [self.batchlist release], self.batchlist = nil;
-    [self.locationList release], self.locationList = nil;
+    self.location.delegate = nil;
+    [_batchlist release], _batchlist = nil;
+    [_locationList release], _locationList = nil;
     
     [super dealloc];
 }
@@ -29,9 +29,9 @@
 -(void) startMediaReferenceRequest {
     NSLog(@"startMediaReferenceRequest");
     for(int i=0; i<self.locationList.count; i++) {
-        BIGLocation * location = [self.locationList objectAtIndex:i];
-        [location setDelegate:self];
-        [location getCollectionImages];
+        self.location = [self.locationList objectAtIndex:i];
+        [self.location setDelegate:self];
+        [self.location getCollectionImages];
     }
 }
 

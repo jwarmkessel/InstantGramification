@@ -29,13 +29,17 @@
 @implementation BIGMapViewController
 
 - (void)dealloc {
-    [self.locationManager release], self.locationManager = nil;
-    [self.originalCoordinate release], self.originalCoordinate = nil;
-    [self.mapView release], self.mapView = nil;
-    [self.locationDataController release], self.locationDataController = nil;
-    [self.locationManagerTimer release], self.locationManagerTimer = nil;
-    [self.loadingMask release], self.loadingMask = nil;
-    [self.mrloader release], self.mrloader = nil;
+    self.locationManager.delegate = nil;
+    self.mrloader.delegate = nil;
+    self.tabBarController.delegate = nil;
+
+    [_locationManager release], _locationManager = nil;
+    [_originalCoordinate release], _originalCoordinate = nil;
+    [_mapView release], self.mapView = nil;
+    [_locationDataController release], _locationDataController = nil;
+    [_locationManagerTimer release], _locationManagerTimer = nil;
+    [_loadingMask release], _loadingMask = nil;
+    [_mrloader release], _mrloader = nil;
     
     [super dealloc];
 }
@@ -45,7 +49,7 @@
     [self setOriginalCoordinate:nil];
     [self setMapView:nil];
     [self setLocationDataController:nil];
-    
+
     [super viewDidUnload];
 }
 
@@ -58,9 +62,6 @@
         self.view = nil;
         
         // Then do here what you used to do in viewDidUnload
-        self.locationManager.delegate = nil;
-        self.mrloader.delegate = nil;
-        self.tabBarController.delegate = nil;
 
     }
 }
@@ -94,12 +95,12 @@
     [self.mapView setDelegate:self];
     
     //Init CLLocationanager and set desired properties.
-    self.locationManager = [[CLLocationManager alloc] init];
-    [self.locationManager setDelegate:self];
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-    self.locationManager.distanceFilter = 5;
+    _locationManager = [[CLLocationManager alloc] init];
+    [_locationManager setDelegate:self];
+    _locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    _locationManager.distanceFilter = 5;
 
-    [self.locationManager startUpdatingLocation];
+    [_locationManager startUpdatingLocation];
     
     [self startTask];
 }
@@ -109,20 +110,22 @@
     self.view.userInteractionEnabled = YES;
 
     if(!self.nearbyLocationPoints) {
-        self.loadingMask = [[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
-        [self.view addSubview:self.loadingMask];
-        UILabel *loadingMaskLbl = [[[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)] autorelease];
+        _loadingMask = [[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+
+        [self.view addSubview:_loadingMask];
+        UILabel *loadingMaskLbl = [[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
         
-        self.loadingMask.backgroundColor = [UIColor blackColor];
-        self.loadingMask.alpha = 0.5;
+        _loadingMask.backgroundColor = [UIColor blackColor];
+        _loadingMask.alpha = 0.5;
         
         loadingMaskLbl.alpha = 1.0;
-        [self.loadingMask addSubview:loadingMaskLbl];
         loadingMaskLbl.text =@"loading";
         loadingMaskLbl.textColor = [UIColor whiteColor];
         loadingMaskLbl.backgroundColor = [UIColor blackColor];
         [loadingMaskLbl setCenter:self.loadingMask.center];
-        loadingMaskLbl.textAlignment = UITextAlignmentCenter;
+        loadingMaskLbl.textAlignment = NSTextAlignmentCenter;
+        [_loadingMask addSubview:loadingMaskLbl];
+        [loadingMaskLbl release];
     } else {
         NSLog(@"Returning 3D view");
         [UIView animateWithDuration:0.2
@@ -221,7 +224,7 @@
     if(annotation != mapView.userLocation)
     {
         static NSString *defaultPinID = @"com.invasivecode.pin";
-        pinView = (BIGCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
+//        pinView = (BIGCustomAnnotationView *)[mapView dequeueReusableAnnotationViewWithIdentifier:defaultPinID];
         pinView = [[[BIGCustomAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:defaultPinID] autorelease];
 //        UIButton *annotationBtn = [[[UIButton alloc] initWithFrame:CGRectMake(0.0f, 0.0f, 44.0f, 44.0f)] autorelease];
         pinView.rightCalloutAccessoryView = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
@@ -341,9 +344,9 @@
     
     //Prototyping*********************************************
     
-    self.nearbyLocationPoints = [[NSMutableArray alloc] initWithArray:[self.locationDataController locationList]];
+    self.nearbyLocationPoints = [[[NSMutableArray alloc] initWithArray:[self.locationDataController locationList]] autorelease];
     
-    self.mrloader = [[BIGMapMediaReferenceloader alloc]initWithArray:self.nearbyLocationPoints];
+    self.mrloader = [[[BIGMapMediaReferenceloader alloc]initWithArray:self.nearbyLocationPoints] autorelease];
     [self.mrloader setDelegate:self];
     [self.mrloader startMediaReferenceRequest];
     

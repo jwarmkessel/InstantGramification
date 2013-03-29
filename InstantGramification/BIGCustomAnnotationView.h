@@ -11,6 +11,5 @@
 
 @interface BIGCustomAnnotationView : MKAnnotationView
 
-@property (retain, nonatomic) UILabel *label;
 @property (retain, nonatomic) BIGLocation *location;
 @end

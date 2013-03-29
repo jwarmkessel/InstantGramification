@@ -9,7 +9,7 @@
 #import "BIGLocationImage.h"
 
 @implementation BIGLocationImage
-@synthesize height = _height, width = _width, url = _url, detailImage = _detailImage;
+
 - (void) dealloc {
     
     [super dealloc];

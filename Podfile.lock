@@ -2,32 +2,12 @@
 DEPENDENCIES: 
 - ASIHTTPRequest (~> 1.8.1)
 - Google-Maps-iOS-SDK (~> 1.1.1)
+- KIF (~> 0.0.1)
 - MapBox (~> 1.0.1)
 - PSTCollectionView (~> 0.0.1)
 - SDWebImage (~> 3.2)
 - TestFlightSDK (~> 1.2.4.beta)
 - instagram-ios-sdk (~> 0.0.1)
-
-COCOAPODS: 0.16.4
-
-SPEC CHECKSUMS: 
-  instagram-ios-sdk: b337c659943d061bb51cedfa280ff95f68dbe08c
-  SMCalloutView: 1c7d62044508a8d405c25495c380b17c613f769e
-  Reachability: ba94ecd4eaa037be3d0588b38956672588530c5b
-  ASIHTTPRequest/S3: a79e32b54f92471bff8979f3b82182f0e9b6992c
-  SDWebImage/MapKit: 8082fe8d658ccafaaecd9e5ecda12ed01f09ba9c
-  MapBox: c99d98e039d5b83725d4d1ddb6bc3c2b856f899e
-  ASIHTTPRequest: a79e32b54f92471bff8979f3b82182f0e9b6992c
-  TestFlightSDK: aeec97fd81096753d53b942f030a443520a087f4
-  JRSwizzle: 6242ff38485d870fc2636899048ee1ab883ae587
-  SDWebImage: 8082fe8d658ccafaaecd9e5ecda12ed01f09ba9c
-  FMDB: 77fb1c93b51bbf14d84d49d5374344b7f68c54f1
-  PSTCollectionView: 5461a4fbe17eb1e2d2fa7388105e708deb6dd1e7
-  Google-Maps-iOS-SDK: a1eed6c7ba2b5128d444bbd10bc5cdfad2af07f4
-  ASIHTTPRequest/CloudFiles: a79e32b54f92471bff8979f3b82182f0e9b6992c
-  SBJson: cc373c9eed9314a45715e4fb77a1415c45fa056e
-  GRMustache: dc2dce488f84524420d0c321c65d9367eb890a34
-  ASIHTTPRequest/ASIWebPageRequest: a79e32b54f92471bff8979f3b82182f0e9b6992c
 
 PODS: 
 - ASIHTTPRequest (1.8.1): 
@@ -46,6 +26,7 @@ PODS:
   - JRSwizzle (~> 1.0)
 - Google-Maps-iOS-SDK (1.1.1)
 - JRSwizzle (1.0)
+- KIF (0.0.1)
 - MapBox (1.0.1): 
   - FMDB (= 2.0)
   - GRMustache (= 5.4.3)
@@ -60,3 +41,25 @@ PODS:
 - TestFlightSDK (1.2.4.beta)
 - instagram-ios-sdk (0.0.1): 
   - SBJson (= 2.2.3)
+
+COCOAPODS: 0.16.4
+
+SPEC CHECKSUMS: 
+  SMCalloutView: 1c7d62044508a8d405c25495c380b17c613f769e
+  instagram-ios-sdk: b337c659943d061bb51cedfa280ff95f68dbe08c
+  PSTCollectionView: 5461a4fbe17eb1e2d2fa7388105e708deb6dd1e7
+  Reachability: ba94ecd4eaa037be3d0588b38956672588530c5b
+  Google-Maps-iOS-SDK: a1eed6c7ba2b5128d444bbd10bc5cdfad2af07f4
+  FMDB: 77fb1c93b51bbf14d84d49d5374344b7f68c54f1
+  ASIHTTPRequest/ASIWebPageRequest: a79e32b54f92471bff8979f3b82182f0e9b6992c
+  ASIHTTPRequest: a79e32b54f92471bff8979f3b82182f0e9b6992c
+  SDWebImage: 8082fe8d658ccafaaecd9e5ecda12ed01f09ba9c
+  JRSwizzle: 6242ff38485d870fc2636899048ee1ab883ae587
+  TestFlightSDK: aeec97fd81096753d53b942f030a443520a087f4
+  SBJson: cc373c9eed9314a45715e4fb77a1415c45fa056e
+  MapBox: c99d98e039d5b83725d4d1ddb6bc3c2b856f899e
+  GRMustache: dc2dce488f84524420d0c321c65d9367eb890a34
+  ASIHTTPRequest/CloudFiles: a79e32b54f92471bff8979f3b82182f0e9b6992c
+  KIF: 26ce47f3f37660ca9bb0b62f9545597e21eca3fc
+  ASIHTTPRequest/S3: a79e32b54f92471bff8979f3b82182f0e9b6992c
+  SDWebImage/MapKit: 8082fe8d658ccafaaecd9e5ecda12ed01f09ba9c

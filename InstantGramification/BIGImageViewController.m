@@ -19,9 +19,9 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 @implementation BIGImageViewController
 
 - (void)dealloc {
-    [self.imageCollection release], self.imageCollection = nil;
-    [self.locationObj release], self.locationObj = nil;
-    [self.loadingMask release], self.loadingMask = nil;
+    [_imageCollection release], _imageCollection = nil;
+    [_locationObj release], _locationObj = nil;
+    [_loadingMask release], _loadingMask = nil;
     
     [super dealloc];
 }
@@ -31,38 +31,41 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
     NSLog(@"collection view did load");
     [super viewDidLoad];
 
-    if(!self.imageCollection) {
-        self.imageCollection = [[NSMutableArray alloc] initWithArray:self.locationObj.imageCollection];
+    if(!_imageCollection) {
+        _imageCollection = [[NSMutableArray alloc] initWithArray:self.locationObj.imageCollection];
     }
     
-    if([self.imageCollection count] == 0) {
-        UILabel *noImageLabel = [[[UILabel alloc] initWithFrame:CGRectMake(0.0f, 44.0f, 320.0f, 44.0f)] autorelease];
-        [self.view addSubview:noImageLabel];
-        
+    if([_imageCollection count] == 0) {
+        UILabel *noImageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0.0f, 44.0f, 320.0f, 44.0f)];
         noImageLabel.textColor = [UIColor whiteColor];
         noImageLabel.backgroundColor = [UIColor blackColor];
         noImageLabel.text = @"No images at this location, sorry!";
-        noImageLabel.textAlignment = UITextAlignmentCenter;
+        noImageLabel.textAlignment = NSTextAlignmentCenter;
+        [self.view addSubview:noImageLabel];
+        
+        [noImageLabel release];
     }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     NSLog(@"collection view will appear");
     if(showLoadingMask) {
-        self.loadingMask = [[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
-        [self.view addSubview:self.loadingMask];
-        UILabel *loadingMaskLbl = [[[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)] autorelease];
-
-        self.loadingMask.backgroundColor = [UIColor blackColor];
-        self.loadingMask.alpha = 0.5;
+        _loadingMask = [[UIView alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+        _loadingMask.backgroundColor = [UIColor blackColor];
+        _loadingMask.alpha = 0.5;
         
-        loadingMaskLbl.alpha = 1.0;
-        [self.loadingMask addSubview:loadingMaskLbl];
+        [self.view addSubview:_loadingMask];
+        
+        UILabel *loadingMaskLbl = [[UILabel alloc]initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
         loadingMaskLbl.text =@"loading";
         loadingMaskLbl.textColor = [UIColor whiteColor];
         loadingMaskLbl.backgroundColor = [UIColor blackColor];
         [loadingMaskLbl setCenter:self.loadingMask.center];
-        loadingMaskLbl.textAlignment = UITextAlignmentCenter;
+        loadingMaskLbl.textAlignment = NSTextAlignmentCenter;
+        loadingMaskLbl.alpha = 1.0;
+        [_loadingMask addSubview:loadingMaskLbl];
+        
+        [loadingMaskLbl release];
     }
 }
 
@@ -104,18 +107,19 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
                                   if([pathToLastRow isEqual:indexPath]) {
                                       [UIView animateWithDuration:0.3
                                                        animations:^(void){
-                                                           self.loadingMask.alpha = 0.0;
+                                                           _loadingMask.alpha = 0.0;
                                                        }
                                                        completion:^(BOOL finished){
-                                                           [self.loadingMask retain];
-                                                           [self.loadingMask removeFromSuperview];
+                                                           [_loadingMask retain];
+                                                           [_loadingMask removeFromSuperview];
+                                                           
                                                        }
                                        ];
                                   }
                               }
                           }
                       }
-     ];
+    ];
     
     return cell;
 }
@@ -135,7 +139,9 @@ NSString *kCellID = @"cellID";                          // UICollectionViewCell 
 }
 
 - (void)setImageCollectionObj:(BIGLocation *)locationObj {
-    [self.imageCollection initWithArray:locationObj.imageCollection];
+    [_imageCollection initWithArray:locationObj.imageCollection];
+
+
 }
 
 - (void)setDisplayLoadingMask:(int)display {
