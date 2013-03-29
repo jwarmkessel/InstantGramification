@@ -9,12 +9,8 @@
 #import "BIGLocationImage.h"
 
 @implementation BIGLocationImage
-
+@synthesize height = _height, width = _width, url = _url, detailImage = _detailImage;
 - (void) dealloc {
-    [self.height release], self.height = nil;
-    [self.width  release], self.width = nil;
-    [self.url release], self.url = nil;
-    [self.detailImage release], self.detailImage = nil;
     
     [super dealloc];
 }

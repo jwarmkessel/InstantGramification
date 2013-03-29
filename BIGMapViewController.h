@@ -27,5 +27,5 @@
 @property (retain, nonatomic) BIGImageViewController *imageCollectionViewController; 
 @property (retain, nonatomic) UIView *loadingMask;
 @property (retain, nonatomic) NSTimer* locationManagerTimer;
-
+@property (retain, nonatomic) BIGMapMediaReferenceloader *mrloader;
 @end

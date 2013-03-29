@@ -17,7 +17,7 @@
 #define M_PI   3.14159265358979323846264338327950288   /* pi */
 #define METERS_PER_MILE 1609.344
 #define METERS_TO_MILE_CONVERSION 0.00062137
-#define SEARCH_DIST 26
+#define SEARCH_DIST 5
 #define UPDATE_GPS 2
 #define DEGREES_TO_RADIANS(angle) (angle / 180.0 * M_PI)
 #define MILES_TO_METERS(miles) (miles /METERS_PER_MILE)
@@ -35,6 +35,7 @@
     [self.locationDataController release], self.locationDataController = nil;
     [self.locationManagerTimer release], self.locationManagerTimer = nil;
     [self.loadingMask release], self.loadingMask = nil;
+    [self.mrloader release], self.mrloader = nil;
     
     [super dealloc];
 }
@@ -50,7 +51,18 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+    if (self.isViewLoaded && !self.view.window)
+    {
+        // If view already loaded but not displayed on screen at this time (not attached to any window) then unload it
+        self.view = nil;
+        
+        // Then do here what you used to do in viewDidUnload
+        self.locationManager.delegate = nil;
+        self.mrloader.delegate = nil;
+        self.tabBarController.delegate = nil;
+
+    }
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -187,18 +199,18 @@
 }
 
 - (void)mapView:(MKMapView *)mapView didAddAnnotationViews:(NSArray *)views {
-    BIGCustomAnnotationView *aV;
+    BIGCustomAnnotationView *annotationView;
 
-    for (aV in views) {
+    for (annotationView in views) {
         
-        CGRect endFrame = aV.frame;
+        CGRect endFrame = annotationView.frame;
         
-        aV.frame = CGRectMake(aV.frame.origin.x, aV.frame.origin.y - 230.0, aV.frame.size.width, aV.frame.size.height);
+        annotationView.frame = CGRectMake(annotationView.frame.origin.x, annotationView.frame.origin.y - 230.0, annotationView.frame.size.width, annotationView.frame.size.height);
         
         [UIView beginAnimations:nil context:NULL];
         [UIView setAnimationDuration:0.45];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-        [aV setFrame:endFrame];
+        [annotationView setFrame:endFrame];
         [UIView commitAnimations];
     }
 }
@@ -319,23 +331,21 @@
     
     for (NSDictionary *data in list)
     {
-        CLLocation *nearbyLocation = [[CLLocation alloc]initWithLatitude:[[data objectForKey:@"latitude"] doubleValue] longitude:[[data objectForKey:@"longitude"] doubleValue]];
+        CLLocation *nearbyLocation = [[[CLLocation alloc] initWithLatitude:[[data objectForKey:@"latitude"] doubleValue] longitude:[[data objectForKey:@"longitude"] doubleValue]] autorelease];
 
         CGFloat distanceFromUser = [self.locationManager.location distanceFromLocation:nearbyLocation];
 
         //Add to the list of friends
         [self.locationDataController addLocationWithName:[data objectForKey:@"name"] latitude:[data objectForKey:@"latitude"] longitude:[data objectForKey:@"longitude"] identityNumber:[data objectForKey:@"id"] distanceFromUserInMeters:distanceFromUser];
-        
-        [nearbyLocation release];
     }
     
     //Prototyping*********************************************
     
     self.nearbyLocationPoints = [[NSMutableArray alloc] initWithArray:[self.locationDataController locationList]];
     
-    BIGMapMediaReferenceloader *mrloader = [[[BIGMapMediaReferenceloader alloc]initWithArray:self.nearbyLocationPoints] autorelease];
-    [mrloader setDelegate:self];
-    [mrloader startMediaReferenceRequest];
+    self.mrloader = [[BIGMapMediaReferenceloader alloc]initWithArray:self.nearbyLocationPoints];
+    [self.mrloader setDelegate:self];
+    [self.mrloader startMediaReferenceRequest];
     
     //remove loading mask
     [UIView animateWithDuration:0.3
@@ -363,28 +373,7 @@
      ];
 }
 
-- (void)didCompleteDownload {
-    
-}
-
 #pragma mark - UITabBarControllerDelegate
-
-- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController {
-    NSLog(@"Did switch maps");
-    
-
-//    [UIView animateWithDuration:0.2
-//                     animations:^ {
-//                         CATransform3D rotationAndPerspectiveTransform = CATransform3DIdentity;
-//                         rotationAndPerspectiveTransform.m34 = 1.0 / -500;
-//                         rotationAndPerspectiveTransform = CATransform3DRotate(rotationAndPerspectiveTransform, 45.0 *M_PI / 180.0f, 0.0f, 1.0f, 0.0f);
-//                         self.view.layer.transform = rotationAndPerspectiveTransform;
-//                     }
-//                     completion:^(BOOL finished) {
-//                         
-//                     }
-//     ];    
-}
 
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
     

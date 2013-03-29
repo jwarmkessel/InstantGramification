@@ -26,10 +26,6 @@
     return self;
 }
 
--(void) sortArrayByDistanceFromUser:(NSArray *)locations {
-    
-}
-
 -(void) startMediaReferenceRequest {
     NSLog(@"startMediaReferenceRequest");
     for(int i=0; i<self.locationList.count; i++) {
@@ -37,8 +33,6 @@
         [location setDelegate:self];
         [location getCollectionImages];
     }
-    
-    [[self delegate] didCompleteDownload];
 }
 
 //Returns media reference for a single location

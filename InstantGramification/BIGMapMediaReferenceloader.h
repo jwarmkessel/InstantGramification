@@ -24,6 +24,5 @@
 @protocol BIGMapMediaRefrenceLoaderDelegate <NSObject>
 
 - (void)didCompleteBatchDownload:(BIGLocation *)newAnnotations;
-- (void)didCompleteDownload;
 
 @end

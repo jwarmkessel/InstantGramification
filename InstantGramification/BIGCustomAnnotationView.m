@@ -15,12 +15,7 @@
 
 @implementation BIGCustomAnnotationView
 
--(void)dealloc {
-    [self.label release], self.label = nil;
-    [self.location release], self.location = nil;
-    
-    [super dealloc];
-}
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -72,4 +67,10 @@
     [self.layer addAnimation:theAnimation forKey:@""];
 }
 
+-(void)dealloc {
+    [self.label release], self.label = nil;
+    [self.location release], self.location = nil;
+    
+    [super dealloc];
+}
 @end
